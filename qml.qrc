@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>LeftMenu.qml</file>
         <file>Albums.qml</file>
+        <file>Album.qml</file>
     </qresource>
 </RCC>
