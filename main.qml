@@ -10,13 +10,7 @@ ApplicationWindow {
     ScrollView {
         anchors.fill: parent
 
-        ListView {
-            width: parent.width
-            model: 20
-            delegate: ItemDelegate {
-                text: "Item " + (index + 1)
-                width: parent.width
-            }
+        LeftMenu {
         }
     }
 }
