@@ -5,5 +5,6 @@
         <file>LeftMenu.qml</file>
         <file>Albums.qml</file>
         <file>Album.qml</file>
+        <file>images/pic1.jpg</file>
     </qresource>
 </RCC>

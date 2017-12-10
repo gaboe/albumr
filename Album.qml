@@ -7,8 +7,12 @@ Item {
         columnSpacing: 15
         id: grid
         columns: 1
-        Text {
-            text: "Image"
+        Image {
+            sourceSize.height: 150
+            sourceSize.width: 150
+
+            fillMode: Image.PreserveAspectFit
+            source: applicationPath + "/tpab.jpg"
         }
 
         Text {
@@ -16,7 +20,7 @@ Item {
         }
 
         Text {
-            text: "2016"
+            text: "2017"
         }
     }
 }
