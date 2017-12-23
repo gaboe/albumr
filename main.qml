@@ -36,6 +36,14 @@ ApplicationWindow {
             Authors {
                 id: authorsView
             }
+
+            AlbumDetail {
+                id: albumDetailView
+            }
+
+            AuthorDetail {
+                id: authorDetailView
+            }
         }
 
         states: [
