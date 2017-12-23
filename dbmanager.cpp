@@ -21,26 +21,43 @@ void DbManager::open()
     QStringList tables = db.tables();
 
     if (!tables.contains("albums", Qt::CaseInsensitive)) {
-       init(db);
+       init();
+    }
 
+    QSqlQuery query("SELECT COUNT(*) FROM Authors");
+    if (query.next()) {
+        int rows = query.value(0).toInt();
+        if(rows < 1)
+            seed();
     }
 }
 
-void DbManager::init(QSqlDatabase db)
+void DbManager::seed()
+{
+    QSqlQuery query;
+    int res=query.exec("insert into Genres(Name) values ('Rap');");
+     res=query.exec("insert into Authors(FirstName,LastName) values ('Kendrick','Lammar');");
+     res=query.exec("insert into Albums(Name,AuthorID,ReleaseYear,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('Wesleys Theory',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('For Free?',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('King Kunta',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('These Walls',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('Alright',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('i',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+     res=query.exec("insert into Songs(Name,AlbumID) values('Mortal Man',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+}
+
+void DbManager::init()
 {
     QSqlQuery query;
     int res=query.exec(getInitScriptForAuthors());
-    qDebug() << res;
-    qDebug() << "exec :" << query.lastError();
+
      res=query.exec(getInitScriptForGenres());
-    qDebug() << res;
-    qDebug() << "exec :" << query.lastError();
+
      res=query.exec(getInitScriptForAlbums());
-    qDebug() << res;
-    qDebug() << "exec :" << query.lastError();
+
      res=query.exec(getInitScriptForSongs());
-    qDebug() << res;
-    qDebug() << "exec :" << query.lastError();
+
 }
 
 QString DbManager::getInitScriptForAuthors()

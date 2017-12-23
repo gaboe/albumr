@@ -11,7 +11,8 @@ public:
     void open();
 
 private:
-    void init(QSqlDatabase db);
+    void init();
+    void seed();
     QString getInitScriptForAuthors();
     QString getInitScriptForGenres();
     QString getInitScriptForAlbums();
