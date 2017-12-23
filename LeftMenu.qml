@@ -9,6 +9,7 @@ ListView {
         }
         ListElement {
             name: "Authors"
+
         }
     }
     delegate: ItemDelegate {

@@ -30,7 +30,36 @@ ApplicationWindow {
             Layout.minimumHeight: 150
 
             Albums {
+                id: albumsView
+            }
+
+            Authors {
+                id: authorsView
             }
         }
+
+        states: [
+            State {
+                name: ""
+            },
+            State {
+                name: "albums-view"
+                PropertyChanges {
+                    target: albumsView
+                    state: "focused"
+                }
+                PropertyChanges {
+                    target: authorsView
+                    state: "hidden"
+                }
+            },
+            State {
+                name: "authors-view"
+                PropertyChanges {
+                    target: authorsView
+                    state: "focused"
+                }
+            }
+        ]
     }
 }

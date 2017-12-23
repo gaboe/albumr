@@ -22,8 +22,15 @@ Component {
         }
 
         Text {
+            id: albumYear
             anchors.top: albumName.bottom
             text: "2016"
+        }
+        MouseArea {
+            anchors.fill: albumCover
+            onClicked: {
+                albumYear.text = 'clicked'
+            }
         }
     }
 }
