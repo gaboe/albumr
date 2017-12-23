@@ -6,5 +6,7 @@
         <file>Albums.qml</file>
         <file>Album.qml</file>
         <file>Authors.qml</file>
+        <file>AuthorDetail.qml</file>
+        <file>AlbumDetail.qml</file>
     </qresource>
 </RCC>
