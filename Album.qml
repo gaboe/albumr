@@ -3,14 +3,11 @@ import QtQuick.Layouts 1.3
 
 Item {
     GridLayout {
-        layoutDirection: "LeftToRight"
         columnSpacing: 15
-        id: grid
         columns: 1
         Image {
             sourceSize.height: 150
             sourceSize.width: 150
-
             fillMode: Image.PreserveAspectFit
             source: applicationPath + "/tpab.jpg"
         }
@@ -20,7 +17,7 @@ Item {
         }
 
         Text {
-            text: "2017"
+            text: year
         }
     }
 }
