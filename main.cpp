@@ -14,8 +14,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     auto dbManager = new DbManager();
-    dbManager->open();
-
+    auto isDbOpened = dbManager->open();
+    if(!isDbOpened)
+        return 1;
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");

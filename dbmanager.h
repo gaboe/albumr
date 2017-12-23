@@ -8,7 +8,7 @@ class DbManager
 {
 public:
     DbManager();
-    void open();
+    bool open();
 
 private:
     void init();

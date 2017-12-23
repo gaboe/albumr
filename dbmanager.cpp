@@ -6,17 +6,18 @@ DbManager::DbManager()
 
 }
 
-void DbManager::open()
+bool DbManager::open()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     auto location = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation) + "/albumr.db";
-    qInfo() << location;
+    qInfo() << "Db location: " << location;
     db.setDatabaseName(location);
     db.open();
 
 
     if (!db.open()){
         qInfo() << db.lastError();
+        return false;
     }
     QStringList tables = db.tables();
 
@@ -30,10 +31,12 @@ void DbManager::open()
         if(rows < 1)
             seed();
     }
+    return true;
 }
 
 void DbManager::seed()
 {
+    qInfo() << "Seeding db";
     QSqlQuery query;
     int res=query.exec("insert into Genres(Name) values ('Rap');");
      res=query.exec("insert into Authors(FirstName,LastName) values ('Kendrick','Lammar');");
@@ -49,6 +52,7 @@ void DbManager::seed()
 
 void DbManager::init()
 {
+    qInfo() << "Initializing db";
     QSqlQuery query;
     int res=query.exec(getInitScriptForAuthors());
 
