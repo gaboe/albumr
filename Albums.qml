@@ -12,22 +12,6 @@ Item {
         id: allbumsHeader
     }
 
-    //    GridLayout {
-    //        anchors.fill: parent // GridLayout must have the right size now
-    //        rows: 3
-    //        columns: 3
-    //        columnSpacing: 0
-    //        rowSpacing: 0 // changed from spacing: 0
-
-    //        Repeater {
-    //            model: 9
-    //            Button {
-    //                // attached properties guiding resizing
-    //                Layout.fillHeight: true
-    //                Layout.fillWidth: true
-    //            }
-    //        }
-    //    }
     Grid {
         anchors.topMargin: 50
         id: grid
