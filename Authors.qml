@@ -19,11 +19,13 @@ Item {
             delegate: Text {
                 text: "Author: " + index
             }
-            highlight: Rectangle {
-                color: "lightsteelblue"
-                radius: 5
-            }
             focus: true
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    layout.state = "author-detail-view"
+                }
+            }
         }
     }
 

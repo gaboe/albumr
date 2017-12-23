@@ -29,7 +29,7 @@ Component {
         MouseArea {
             anchors.fill: albumCover
             onClicked: {
-                albumYear.text = 'clicked'
+                layout.state = "album-detail-view"
             }
         }
     }
