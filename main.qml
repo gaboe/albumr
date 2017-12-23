@@ -52,6 +52,14 @@ ApplicationWindow {
                     target: authorsView
                     state: "hidden"
                 }
+                PropertyChanges {
+                    target: authorDetailView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: albumDetailView
+                    state: "hidden"
+                }
             },
             State {
                 name: "authors-view"
@@ -62,6 +70,52 @@ ApplicationWindow {
                 PropertyChanges {
                     target: albumsView
                     state: "hidden"
+                }
+                PropertyChanges {
+                    target: authorDetailView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: albumDetailView
+                    state: "hidden"
+                }
+            },
+            State {
+                name: "author-detail-view"
+                PropertyChanges {
+                    target: authorsView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: albumsView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: authorDetailView
+                    state: "focused"
+                }
+                PropertyChanges {
+                    target: albumDetailView
+                    state: "hidden"
+                }
+            },
+            State {
+                name: "album-detail-view"
+                PropertyChanges {
+                    target: authorsView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: albumsView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: authorDetailView
+                    state: "hidden"
+                }
+                PropertyChanges {
+                    target: albumDetailView
+                    state: "focused"
                 }
             }
         ]
