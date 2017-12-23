@@ -11,7 +11,7 @@ ApplicationWindow {
     RowLayout {
         id: layout
         anchors.fill: parent
-
+        state: "none"
         ScrollView {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -40,7 +40,7 @@ ApplicationWindow {
 
         states: [
             State {
-                name: ""
+                name: "none"
             },
             State {
                 name: "albums-view"
@@ -58,6 +58,10 @@ ApplicationWindow {
                 PropertyChanges {
                     target: authorsView
                     state: "focused"
+                }
+                PropertyChanges {
+                    target: albumsView
+                    state: "hidden"
                 }
             }
         ]

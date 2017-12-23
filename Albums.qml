@@ -5,11 +5,12 @@ import QtQuick.Controls 2.2
 Item {
     id: albums
     property variant colorArray: ["#00bde3", "#67c111", "#ea7025"]
+    state: "focused"
 
     Text {
         font.pixelSize: 24
         text: "Albums"
-        id: allbumsHeader
+        id: albumsHeader
     }
 
     Grid {
@@ -25,4 +26,21 @@ Item {
             }
         }
     }
+
+    states: [
+        State {
+            name: "focused"
+            PropertyChanges {
+                target: albums
+                visible: true
+            }
+        },
+        State {
+            name: "hidden"
+            PropertyChanges {
+                target: albums
+                visible: false
+            }
+        }
+    ]
 }
