@@ -18,21 +18,10 @@ Item {
         anchors.fill: parent
         anchors.margins: 8
         spacing: 4
+
         Repeater {
-            model: 16
-
-            Rectangle {
-
-                width: ((layout.width - leftMenu.width) / 4) - 8
-                height: ((layout.width - leftMenu.width) / 4) - 8
-                property int colorIndex: Math.floor(Math.random() * 3)
-                color: albums.colorArray[colorIndex]
-                border.color: Qt.lighter(color)
-                Text {
-                    anchors.centerIn: parent
-                    color: "#f0f0f0"
-                    text: layout.height / 4
-                }
+            model: 32
+            delegate: Album {
             }
         }
     }
