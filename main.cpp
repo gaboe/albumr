@@ -1,6 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QtSql>
+#include <QStandardPaths>
+#include "dbmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +13,8 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-
+    auto dbManager = new DbManager();
+    dbManager->open();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
