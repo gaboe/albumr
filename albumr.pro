@@ -14,7 +14,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     dbmanager.cpp \
-    authorservice.cpp
+    authorservice.cpp \
+    author.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,4 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     dbmanager.h \
-    authorservice.h
+    authorservice.h \
+    author.h

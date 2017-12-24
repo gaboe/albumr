@@ -1,12 +1,14 @@
 #include "authorservice.h"
 #include "dbmanager.h"
 #include <QVariantMap>
+#include "author.h"
+
 AuthorService::AuthorService()
 {
 
 }
 
-int AuthorService::getAuthors()
+QList<Author*> AuthorService::getAuthors()
 {
     auto db= new DbManager();
     db->open();
@@ -14,9 +16,12 @@ int AuthorService::getAuthors()
     QString queryString = "SELECT FirstName FROM Authors";
 
     query.exec(queryString);
-    auto list = new QList<QVariant>();
+    auto list = new QList<Author*>();
     while (query.next()) {
         QSqlRecord record = query.record();
-        qDebug() << "Date : " << record.value("FirstName").toString();
+        auto author = new Author();
+        author->setFirstName(record.value("FirstName").toString());
+        list->append(author);
     }
+    return *list;
 }
