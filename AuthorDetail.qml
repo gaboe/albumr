@@ -8,6 +8,13 @@ Item {
         id: authorDetailHeader
     }
 
+    Text {
+        y: 20
+        font.pixelSize: 24
+        text: firstAuthor.firstName
+        id: authorDetailName
+    }
+
     state: "hidden"
     states: [
         State {
