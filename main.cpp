@@ -4,6 +4,7 @@
 #include <QtSql>
 #include <QStandardPaths>
 #include "dbmanager.h"
+#include "authorservice.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,9 @@ int main(int argc, char *argv[])
     auto isDbOpened = dbManager->open();
     if(!isDbOpened)
         return 1;
+
+    auto authorService = new AuthorService();
+    auto a = authorService->getAuthors();
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
