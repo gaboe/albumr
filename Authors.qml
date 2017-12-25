@@ -28,7 +28,8 @@ Item {
             }
             focus: true
             onCurrentItemChanged: {
-                console.log(list.model[list.currentIndex].authorID)
+                layout.state = "author-detail-view"
+                authorService.setAuthorDetail(list.model[list.currentIndex])
             }
         }
     }

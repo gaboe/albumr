@@ -6,7 +6,6 @@
 #include "dbmanager.h"
 #include "authorservice.h"
 
-
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_WIN)
@@ -21,12 +20,12 @@ int main(int argc, char *argv[])
         return 1;
 
     auto authorService = new AuthorService();
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
     engine.rootContext()->setContextProperty("authorService", authorService);
     qmlRegisterType<Author>();
-
 
     if (engine.rootObjects().isEmpty())
         return -1;

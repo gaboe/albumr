@@ -11,7 +11,7 @@ Item {
     Text {
         y: 20
         font.pixelSize: 24
-        text: authorService.getAuthors()[0].firstName
+        text: authorService.authorDetail.firstName + " " + authorService.authorDetail.lastName
         id: authorDetailName
     }
 
