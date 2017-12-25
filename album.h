@@ -20,7 +20,7 @@ public:
     explicit Album(QObject *parent = nullptr);
     Q_PROPERTY(int albumID READ albumID WRITE setAlbumID NOTIFY albumIDChanged)
     Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
-    Q_PROPERTY(QString name READ name WRITE setname NOTIFY nameChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int authorID READ authorID WRITE setAuthorID NOTIFY authorIDChanged)
     Q_PROPERTY(int genreID READ genreID WRITE setGenreID NOTIFY genreIDChanged)
 
@@ -62,7 +62,7 @@ void authorIDChanged(int authorID);
 void genreIDChanged(int genreID);
 
 public slots:
-void setname(QString name)
+void setName(QString name)
 {
     if (m_name == name)
         return;

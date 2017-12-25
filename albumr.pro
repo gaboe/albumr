@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     dbmanager.cpp \
     authorservice.cpp \
     author.cpp \
-    album.cpp
+    album.cpp \
+    albumservice.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,4 +36,5 @@ HEADERS += \
     dbmanager.h \
     authorservice.h \
     author.h \
-    album.h
+    album.h \
+    albumservice.h
