@@ -3,36 +3,40 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.3
 
 Item {
+    y: 30
     id: albumDetail
+    anchors.topMargin: 20
+    width: (layout.width - leftMenu.width)
     property int albumID: albumService.albumDetail.albumID
     function addSong() {
-        albumService.addSong(textEdit.text, albumDetail.albumID)
-        albumService.setNewSongs(albumDetail.albumID)
-        textEdit.text = ""
+        if (textEdit.text != "") {
+            albumService.addSong(textEdit.text, albumDetail.albumID)
+            albumService.setNewSongs(albumDetail.albumID)
+            textEdit.text = ""
+        }
+    }
+    Text {
+        anchors.top: albumDetail.anchors.top
+        anchors.centerIn: albumDetail
+        font.pointSize: 24
+        id: albumDetailName
+        text: albumService.albumDetail.name
     }
     Image {
+        anchors.top: albumDetailName.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        horizontalAlignment: Image.AlignHCenter
         id: albumCover
-        sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
-        sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
+        sourceSize.height: (layout.width - leftMenu.width) * 0.3
+        sourceSize.width: (layout.width - leftMenu.width) * 0.3
         fillMode: Image.PreserveAspectFit
         source: applicationPath + "/" + albumService.albumDetail.albumID + ".jpg"
     }
 
     Text {
-        y: 100
-        font.pixelSize: 24
-        text: "Album detail"
-        id: albumDetailHeader
-    }
-
-    Text {
-        y: 130
-        id: albumDetailName
-        text: "Name: " + albumService.albumDetail.name
-    }
-
-    Text {
-        y: 140
+        x: albumDetail.width * 0.10
+        anchors.top: albumCover.bottom
         id: albumDetailAuthorName
         text: "Author: " + albumService.albumDetail.authorName
         property int authorID: albumService.albumDetail.authorID
@@ -48,20 +52,26 @@ Item {
     }
 
     Text {
-        y: 160
+        x: albumDetail.width * 0.10
+        anchors.top: albumDetailAuthorName.bottom
         id: albumDetailGenreName
         text: "Genre: " + albumService.albumDetail.genreName
     }
 
     Text {
-        y: 180
+        x: albumDetail.width * 0.10
+        anchors.top: albumDetailGenreName.bottom
+        id: songsHeader
         text: "Songs: "
     }
 
     Rectangle {
-        y: 250
-        width: ((layout.width - leftMenu.width) * .75)
+        id: songsListWrapper
+        anchors.top: songsHeader.bottom
+        x: albumDetail.width * 0.10
+        width: albumDetail.width * .15
         height: layout.height
+        anchors.margins: 20
         ListView {
             id: songs
             anchors.fill: parent
@@ -74,24 +84,25 @@ Item {
     }
 
     TextEdit {
-
-        y: 200
+        anchors.left: songsListWrapper.right
+        anchors.top: songsHeader.bottom
+        anchors.margins: 20
         id: textEdit
         width: 200
-        height: 100
-        font.pointSize: 24
+        height: 50
         property string placeholderText: "Add new song..."
         Keys.onEnterPressed: {
             addSong()
         }
         Text {
-            font.pointSize: 24
+            id: addSongPlaceholder
             text: textEdit.placeholderText
             color: "#aaa"
             visible: !textEdit.text
         }
         Button {
-            x: 300
+            anchors.margins: 15
+            anchors.left: addSongPlaceholder.right
             text: "Add"
             highlighted: true
             Material.accent: Material.BlueGrey
