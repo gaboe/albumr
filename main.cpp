@@ -21,16 +21,12 @@ int main(int argc, char *argv[])
         return 1;
 
     auto authorService = new AuthorService();
-    auto a = authorService->getAuthors();
-
-    foreach (auto author, a) {
-        qDebug() << author->firstName();
-    }
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
+    engine.rootContext()->setContextProperty("authorService", authorService);
+    qmlRegisterType<Author>();
 
-    engine.rootContext()->setContextProperty("firstAuthor", a.first());
 
     if (engine.rootObjects().isEmpty())
         return -1;

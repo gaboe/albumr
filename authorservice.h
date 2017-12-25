@@ -1,13 +1,15 @@
 #ifndef AUTHORSERVICE_H
 #define AUTHORSERVICE_H
-#include <QList>
+#include <QQmlListProperty>
 #include <author.h>
+#include <QObject>
 
-class AuthorService
+class AuthorService : public QObject
 {
+    Q_OBJECT
 public:
-    AuthorService();
-    QList<Author*> getAuthors();
+    explicit AuthorService(QObject *parent = nullptr);
+    Q_INVOKABLE QList<QVariant> getAuthors();
 };
 
 #endif // AUTHORSERVICE_H

@@ -14,10 +14,11 @@ Item {
         height: layout.height
 
         ListView {
+            id: list
             anchors.fill: parent
-            model: 200
+            model: authorService.getAuthors()
             delegate: Text {
-                text: "Author: " + index
+                text: "Author: " + list.model[index].firstName
             }
             focus: true
             MouseArea {
