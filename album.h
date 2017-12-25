@@ -21,7 +21,9 @@ class Album : public QObject
 QString m_authorName;
 
 public:
-    explicit Album(QObject *parent = nullptr);
+    Album(QObject *parent = nullptr);
+    Album(const Album &obj);
+    ~Album();
     Q_PROPERTY(int albumID READ albumID WRITE setAlbumID NOTIFY albumIDChanged)
     Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -29,6 +31,7 @@ public:
     Q_PROPERTY(int genreID READ genreID WRITE setGenreID NOTIFY genreIDChanged)
     Q_PROPERTY(QString genreName READ genreName WRITE setGenreName NOTIFY genreNameChanged)
     Q_PROPERTY(QString authorName READ authorName WRITE setAuthorName NOTIFY authorNameChanged)
+
 QString name() const
 {
     return m_name;
@@ -139,5 +142,6 @@ void setAuthorName(QString authorName)
     emit authorNameChanged(m_authorName);
 }
 };
+Q_DECLARE_METATYPE(Album)
 
 #endif // ALBUM_H

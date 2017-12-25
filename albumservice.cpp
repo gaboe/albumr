@@ -1,5 +1,6 @@
 #include "albumservice.h"
 #include "album.h"
+#include "song.h"
 #include <QObject>
 #include <QSqlQuery>
 #include <QSqlRecord>
@@ -50,4 +51,25 @@ QVariant AlbumService::getAlbum()
         return v;
     }
 
+}
+
+QList<QVariant> AlbumService::getSongs(int albumID)
+{
+
+    QSqlQuery query;
+    QString queryString = "SELECT SongID, Name FROM SONGS WHERE AlbumID = ";
+    queryString.append(QString::number(albumID));
+
+    query.exec(queryString);
+    auto list = new QList<QVariant>();
+    while (query.next()) {
+        QSqlRecord record = query.record();
+
+        auto song = new Song();
+        song->setName(record.value("Name").toString());
+
+        QVariant v = QVariant::fromValue(song);
+        list->insert(list->size(),v);
+    }
+    return *list;
 }

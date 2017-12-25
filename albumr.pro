@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     authorservice.cpp \
     author.cpp \
     album.cpp \
-    albumservice.cpp
+    albumservice.cpp \
+    song.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,4 +38,5 @@ HEADERS += \
     authorservice.h \
     author.h \
     album.h \
-    albumservice.h
+    albumservice.h \
+    song.h

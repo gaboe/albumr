@@ -20,11 +20,28 @@ Item {
         id: albumDetailAuthorName
         text: "Author: " + albumService.albumDetail.authorName
     }
+
     Text {
         y: 60
         id: albumDetailGenreName
-        text: "Genre: " + albumService.albumDetail.genreName
+        text: "Genre: " + albumService.albumDetail.albumID
     }
+
+    Rectangle {
+        y: 80
+        width: ((layout.width - leftMenu.width) * .75)
+        height: layout.height
+        ListView {
+            id: songs
+            anchors.fill: parent
+            model: albumService.songs
+            delegate: Text {
+                text: albumService.songs[index].name
+            }
+            focus: true
+        }
+    }
+
     state: "hidden"
     states: [
         State {

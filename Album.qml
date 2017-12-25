@@ -30,6 +30,7 @@ Component {
             anchors.fill: albumCover
             onClicked: {
                 albumService.setAlbumDetail(albumsRepeater.model[index])
+                albumService.setNewSongs(albumsRepeater.model[index].albumID)
                 layout.state = "album-detail-view"
             }
         }
