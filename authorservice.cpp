@@ -49,7 +49,7 @@ QVariant AuthorService::getAuthor(int authorID)
     }
 }
 
-QVariant AuthorService::addAuthor(QString firstName,QString lastName)
+void AuthorService::addAuthor(QString firstName,QString lastName)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO Authors(FirstName,LastName) values (:firstName,:lastName)");

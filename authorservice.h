@@ -15,7 +15,7 @@ public:
     explicit AuthorService(QObject *parent = nullptr);
     Q_INVOKABLE QList<QVariant> getNewAuthors();
     Q_INVOKABLE QVariant getAuthor(int authorID);
-    Q_INVOKABLE QVariant addAuthor(QString firstName,QString lastName);
+    Q_INVOKABLE void addAuthor(QString firstName,QString lastName);
     Q_PROPERTY(QVariant authorDetail READ authorDetail WRITE setAuthorDetail NOTIFY authorDetailChanged)
     Q_PROPERTY(QList<QVariant> authors READ authors WRITE setAuthors NOTIFY authorsChanged)
 

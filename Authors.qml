@@ -9,6 +9,7 @@ Item {
             textEdit.text = ""
             lastName.text = ""
             authorService.setNewAuthors()
+            layout.state = "authors-view"
         }
     }
     id: authors
@@ -67,7 +68,7 @@ Item {
         ListView {
             id: list
             anchors.fill: parent
-            model: authorService.getNewAuthors()
+            model: authorService.authors
             delegate: Text {
                 property int authorID: list.model[index].authorID
                 text: list.model[index].authorID + " " + list.model[index].firstName
