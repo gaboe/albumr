@@ -8,7 +8,7 @@ Item {
             authorService.addAuthor(textEdit.text, lastName.text)
             textEdit.text = ""
             lastName.text = ""
-            //authorService.setNewAuthors()
+            authorService.setNewAuthors()
         }
     }
     id: authors
