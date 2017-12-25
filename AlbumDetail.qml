@@ -10,8 +10,20 @@ Item {
     }
 
     Text {
+        y: 20
         id: albumDetailName
-        text: ""
+        text: "Name: " + albumService.albumDetail.name
+    }
+
+    Text {
+        y: 40
+        id: albumDetailAuthorName
+        text: "Author: " + albumService.albumDetail.authorName
+    }
+    Text {
+        y: 60
+        id: albumDetailGenreName
+        text: "Genre: " + albumService.albumDetail.genreName
     }
     state: "hidden"
     states: [

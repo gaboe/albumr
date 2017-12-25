@@ -16,6 +16,10 @@ class Album : public QObject
 
     int m_genreID;
 
+    QString m_genreName;
+
+QString m_authorName;
+
 public:
     explicit Album(QObject *parent = nullptr);
     Q_PROPERTY(int albumID READ albumID WRITE setAlbumID NOTIFY albumIDChanged)
@@ -23,7 +27,8 @@ public:
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int authorID READ authorID WRITE setAuthorID NOTIFY authorIDChanged)
     Q_PROPERTY(int genreID READ genreID WRITE setGenreID NOTIFY genreIDChanged)
-
+    Q_PROPERTY(QString genreName READ genreName WRITE setGenreName NOTIFY genreNameChanged)
+    Q_PROPERTY(QString authorName READ authorName WRITE setAuthorName NOTIFY authorNameChanged)
 QString name() const
 {
     return m_name;
@@ -49,6 +54,16 @@ int genreID() const
     return m_genreID;
 }
 
+QString genreName() const
+{
+    return m_genreName;
+}
+
+QString authorName() const
+{
+    return m_authorName;
+}
+
 signals:
 
 void nameChanged(QString name);
@@ -60,6 +75,10 @@ void yearChanged(int year);
 void authorIDChanged(int authorID);
 
 void genreIDChanged(int genreID);
+
+void genreNameChanged(QString genreName);
+
+void authorNameChanged(QString authorName);
 
 public slots:
 void setName(QString name)
@@ -101,6 +120,23 @@ void setGenreID(int genreID)
 
     m_genreID = genreID;
     emit genreIDChanged(m_genreID);
+}
+
+void setGenreName(QString genreName)
+{
+    if (m_genreName == genreName)
+        return;
+
+    m_genreName = genreName;
+    emit genreNameChanged(m_genreName);
+}
+void setAuthorName(QString authorName)
+{
+    if (m_authorName == authorName)
+        return;
+
+    m_authorName = authorName;
+    emit authorNameChanged(m_authorName);
 }
 };
 
