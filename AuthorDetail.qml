@@ -15,6 +15,26 @@ Item {
         id: authorDetailName
     }
 
+    Text {
+        y: 50
+        text: "Albums:"
+    }
+
+    Rectangle {
+        y: 70
+        width: ((layout.width - leftMenu.width) * .75)
+        height: layout.height
+        ListView {
+            id: songs
+            anchors.fill: parent
+            model: albumService.authorAlbums
+            delegate: Text {
+                text: albumService.authorAlbums[index].name
+            }
+            focus: true
+        }
+    }
+
     state: "hidden"
     states: [
         State {

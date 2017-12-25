@@ -13,14 +13,19 @@ class AlbumService : public QObject
 
     QList<QVariant> m_songs;
 
+    QList<QVariant> m_authorAlbums;
+
 public:
     explicit AlbumService(QObject *parent = nullptr);
     Q_INVOKABLE QList<QVariant> getAlbums();
     Q_INVOKABLE QVariant getAlbum();
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);
+    Q_INVOKABLE QList<QVariant> getAlbums(int authorID);
 
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
     Q_PROPERTY(QList<QVariant> songs READ songs WRITE setSongs NOTIFY songsChanged)
+    Q_PROPERTY(QList<QVariant> authorAlbums READ authorAlbums WRITE setAuthorAlbums NOTIFY authorAlbumsChanged)
+
 QVariant albumDetail() const
 {
     return m_albumDetail;
@@ -31,13 +36,25 @@ QList<QVariant> songs() const
     return m_songs;
 }
 
+QList<QVariant> authorAlbums() const
+{
+    return m_authorAlbums;
+}
+
 signals:
 
 void albumDetailChanged(QVariant albumDetail);
 
 void songsChanged(QList<QVariant> songs);
 
+void authorAlbumsChanged(QList<QVariant> authorAlbums);
+
 public slots:
+void setNewAuthorAlbums(int authorID){
+    auto albums = getAlbums(authorID);
+    setAuthorAlbums(albums);
+}
+
 void setNewSongs(int albumID){
     auto songs = getSongs(albumID);
     setSongs(songs);
@@ -58,6 +75,14 @@ void setSongs(QList<QVariant> songs)
 
     m_songs = songs;
     emit songsChanged(m_songs);
+}
+void setAuthorAlbums(QList<QVariant> authorAlbums)
+{
+    if (m_authorAlbums == authorAlbums)
+        return;
+
+    m_authorAlbums = authorAlbums;
+    emit authorAlbumsChanged(m_authorAlbums);
 }
 };
 

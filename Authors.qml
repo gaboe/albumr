@@ -30,6 +30,8 @@ Item {
             onCurrentItemChanged: {
                 layout.state = "author-detail-view"
                 authorService.setAuthorDetail(list.model[list.currentIndex])
+                albumService.setNewAuthorAlbums(
+                            list.model[list.currentIndex].authorID)
             }
         }
     }

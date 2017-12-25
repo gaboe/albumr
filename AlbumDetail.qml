@@ -24,7 +24,7 @@ Item {
     Text {
         y: 60
         id: albumDetailGenreName
-        text: "Genre: " + albumService.albumDetail.albumID
+        text: "Genre: " + albumService.albumDetail.genreName
     }
 
     Text {
@@ -41,7 +41,7 @@ Item {
             anchors.fill: parent
             model: albumService.songs
             delegate: Text {
-                text: albumService.songs[index].name
+                text: (index + 1) + ". " + albumService.songs[index].name
             }
             focus: true
         }
