@@ -4,8 +4,10 @@ import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
+    width: 1240
+    height: 720
+    minimumWidth: 640
+    minimumHeight: 480
     title: qsTr("albumr")
 
     RowLayout {

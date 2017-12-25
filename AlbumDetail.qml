@@ -34,7 +34,7 @@ Item {
     Text {
         y: 140
         id: albumDetailAuthorName
-        text: "Author: " + albumService.albumDetail.authorName + albumService.albumDetail.authorID
+        text: "Author: " + albumService.albumDetail.authorName
         property int authorID: albumService.albumDetail.authorID
         MouseArea {
             anchors.fill: albumDetailAuthorName

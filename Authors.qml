@@ -61,7 +61,7 @@ Item {
     }
 
     Rectangle {
-        y: 70
+        y: 120
         width: ((layout.width - leftMenu.width) * .75)
         height: layout.height
 
@@ -70,20 +70,22 @@ Item {
             anchors.fill: parent
             model: authorService.authors
             delegate: Text {
+                id: authorItem
                 property int authorID: list.model[index].authorID
                 text: list.model[index].authorID + " " + list.model[index].firstName
                       + " " + list.model[index].lastName
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: list.currentIndex = index
+                    onClicked: {
+                        layout.state = "author-detail-view"
+                        authorService.setNewAuthorDetail(authorItem.authorID)
+                        albumService.setNewAuthorAlbums(authorItem.authorID)
+                    }
                 }
             }
             focus: true
             onCurrentItemChanged: {
-                layout.state = "author-detail-view"
-                authorService.setAuthorDetail(list.model[list.currentIndex])
-                albumService.setNewAuthorAlbums(
-                            list.model[list.currentIndex].authorID)
+
             }
         }
     }
