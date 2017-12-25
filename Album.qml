@@ -30,7 +30,8 @@ Component {
         MouseArea {
             anchors.fill: albumCover
             onClicked: {
-                albumService.setAlbumDetail(albumsRepeater.model[index])
+                albumService.setNewAlbumDetail(
+                            albumsRepeater.model[index].albumID)
                 albumService.setNewSongs(albumsRepeater.model[index].albumID)
                 layout.state = "album-detail-view"
             }

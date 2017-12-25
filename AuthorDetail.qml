@@ -54,8 +54,8 @@ Item {
                 MouseArea {
                     anchors.fill: albumCover
                     onClicked: {
-                        albumService.setAlbumDetail(
-                                    albumService.authorAlbums[index])
+                        albumService.setNewAlbumDetail(
+                                    albumService.authorAlbums[index].albumID)
                         albumService.setNewSongs(
                                     albumService.authorAlbums[index].albumID)
                         layout.state = "album-detail-view"

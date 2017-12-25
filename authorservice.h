@@ -12,6 +12,7 @@ class AuthorService : public QObject
 public:
     explicit AuthorService(QObject *parent = nullptr);
     Q_INVOKABLE QList<QVariant> getAuthors();
+    Q_INVOKABLE QVariant getAuthor(int authorID);
     Q_PROPERTY(QVariant authorDetail READ authorDetail WRITE setAuthorDetail NOTIFY authorDetailChanged)
 
 QVariant authorDetail() const
@@ -19,6 +20,12 @@ QVariant authorDetail() const
     return m_authorDetail;
 }
 public slots:
+
+void setNewAuthorDetail(int authorID)
+{
+   auto author = getAuthor(authorID);
+   setAuthorDetail(author);
+}
 void setAuthorDetail(QVariant authorDetail)
 {
     if (m_authorDetail == authorDetail)

@@ -26,20 +26,22 @@ QList<QVariant> AlbumService::getAlbums()
         album->setName(record.value("Name").toString());
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
+        album->setAuthorID(record.value("AuthorID").toInt());
         album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
         QVariant v = QVariant::fromValue(album);
+        qDebug() << album->authorID();
         list->insert(list->size(),v);
     }
     return *list;
 }
 
-QVariant AlbumService::getAlbum()
+QVariant AlbumService::getAlbum(int albumID)
 {
     QSqlQuery query;
-    QString queryString = "SELECT AlbumID, Name, AuthorID, Year, GenreID,  FROM Albums as al JOIN Authors au on au.AuthorID = al.AuthorID ";
-
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+    queryString.append(" WHERE Albums.AlbumID = ");
+    queryString.append(QString::number(albumID));
     query.exec(queryString);
-    auto list = new QList<QVariant>();
     while (query.next()) {
         QSqlRecord record = query.record();
 
@@ -47,10 +49,12 @@ QVariant AlbumService::getAlbum()
         album->setAlbumID(record.value("AlbumID").toInt());
         album->setName(record.value("Name").toString());
         album->setYear(record.value("Year").toInt());
+        album->setGenreName(record.value("GenreName").toString());
+        album->setAuthorID(record.value("AuthorID").toInt());
+        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
         QVariant v = QVariant::fromValue(album);
         return v;
     }
-
 }
 
 QList<QVariant> AlbumService::getSongs(int albumID)
@@ -80,7 +84,6 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
     QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
     queryString.append(" WHERE Albums.AuthorID = ");
     queryString.append(QString::number(authorID));
-    qDebug() << queryString;
     query.exec(queryString);
     auto list = new QList<QVariant>();
     while (query.next()) {

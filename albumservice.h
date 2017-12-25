@@ -18,7 +18,7 @@ class AlbumService : public QObject
 public:
     explicit AlbumService(QObject *parent = nullptr);
     Q_INVOKABLE QList<QVariant> getAlbums();
-    Q_INVOKABLE QVariant getAlbum();
+    Q_INVOKABLE QVariant getAlbum(int albumID);
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);
     Q_INVOKABLE QList<QVariant> getAlbums(int authorID);
     Q_INVOKABLE void addSong(QString name,int albumID);
@@ -50,6 +50,11 @@ void songsChanged(QList<QVariant> songs);
 void authorAlbumsChanged(QList<QVariant> authorAlbums);
 
 public slots:
+void setNewAlbumDetail(int albumID){
+    auto album = getAlbum(albumID);
+    setAlbumDetail(album);
+}
+
 void setNewAuthorAlbums(int authorID){
     auto albums = getAlbums(authorID);
     setAuthorAlbums(albums);

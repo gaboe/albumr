@@ -28,7 +28,17 @@ Item {
     Text {
         y: 140
         id: albumDetailAuthorName
-        text: "Author: " + albumService.albumDetail.authorName
+        text: "Author: " + albumService.albumDetail.authorName + albumService.albumDetail.authorID
+        property int authorID: albumService.albumDetail.authorID
+        MouseArea {
+            anchors.fill: albumDetailAuthorName
+            onClicked: {
+                console.log(albumDetailAuthorName.authorID)
+                layout.state = "author-detail-view"
+                authorService.setNewAuthorDetail(albumDetailAuthorName.authorID)
+                albumService.setNewAuthorAlbums(albumDetailAuthorName.authorID)
+            }
+        }
     }
 
     Text {
@@ -81,7 +91,9 @@ Item {
             onClicked: {
                 albumService.addSong(textEdit.text,
                                      albumService.albumDetail.albumID)
-                console.log()
+                albumService.setAlbumDetail(albumService.albumDetail.albumID)
+                albumService.setNewSongs(albumService.albumDetail.albumID)
+                textEdit.text = ""
             }
         }
     }

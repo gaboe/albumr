@@ -13,7 +13,9 @@ class Author : public QObject
     int m_authorID;
 
 public:
-    explicit Author(QObject *parent = nullptr);
+    Author(QObject *parent = nullptr);
+    Author(const Author &obj);
+    ~Author();
     Q_PROPERTY(QString firstName READ firstName WRITE setFirstName NOTIFY firstNameChanged)
     Q_PROPERTY(QString lastName READ lastName WRITE setLastName NOTIFY lastNameChanged)
     Q_PROPERTY(int authorID READ authorID WRITE setAuthorID NOTIFY authorIDChanged)
@@ -67,5 +69,6 @@ void setAuthorID(int authorID)
     emit authorIDChanged(m_authorID);
 }
 };
+Q_DECLARE_METATYPE(Author)
 
 #endif // AUTHOR_H
