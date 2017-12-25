@@ -5,6 +5,7 @@
 #include <QStandardPaths>
 #include "dbmanager.h"
 #include "authorservice.h"
+#include "albumservice.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,11 +21,14 @@ int main(int argc, char *argv[])
         return 1;
 
     auto authorService = new AuthorService();
+    auto albumService = new AlbumService();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
     engine.rootContext()->setContextProperty("authorService", authorService);
+    engine.rootContext()->setContextProperty("albumService", albumService);
+
     qmlRegisterType<Author>();
 
     if (engine.rootObjects().isEmpty())

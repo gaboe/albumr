@@ -21,7 +21,8 @@ Item {
         spacing: 4
 
         Repeater {
-            model: 32
+            id: albumsRepeater
+            model: albumService.getAlbums()
             delegate: Album {
             }
         }

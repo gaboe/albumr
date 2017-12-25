@@ -12,19 +12,19 @@ Component {
             sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             fillMode: Image.PreserveAspectFit
-            source: applicationPath + "/tpab.jpg"
+            source: applicationPath + "/" + albumsRepeater.model[index].albumID + ".jpg"
         }
 
         Text {
             id: albumName
             anchors.top: albumCover.bottom
-            text: "To Pimp A Butterfly"
+            text: albumsRepeater.model[index].name
         }
 
         Text {
             id: albumYear
             anchors.top: albumName.bottom
-            text: "2016"
+            text: albumsRepeater.model[index].year
         }
         MouseArea {
             anchors.fill: albumCover
