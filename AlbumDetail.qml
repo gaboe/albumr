@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.3
 
 Item {
     id: albumDetail
@@ -41,7 +43,7 @@ Item {
     }
 
     Rectangle {
-        y: 200
+        y: 250
         width: ((layout.width - leftMenu.width) * .75)
         height: layout.height
         ListView {
@@ -52,6 +54,30 @@ Item {
                 text: (index + 1) + ". " + albumService.songs[index].name
             }
             focus: true
+        }
+    }
+
+    TextEdit {
+        y: 200
+        id: textEdit
+        width: 200
+        height: 100
+        font.pointSize: 24
+        property string placeholderText: "Add new song..."
+
+        Text {
+            id: newSongInput
+            font.pointSize: 24
+            text: textEdit.placeholderText
+            color: "#aaa"
+            visible: !textEdit.text
+        }
+        Button {
+            x: 300
+            text: "Add"
+
+            highlighted: true
+            Material.accent: Material.Indigo
         }
     }
 
