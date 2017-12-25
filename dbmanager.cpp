@@ -42,7 +42,7 @@ void DbManager::seed()
     res=query.exec("insert into Authors(FirstName,LastName) values ('Kendrick','Lammar');");
     res=query.exec("insert into Authors(FirstName,LastName) values ('Kanye','West');");
     res=query.exec("insert into Authors(FirstName,LastName) values ('Frank','Ocean');");
-     res=query.exec("insert into Albums(Name,AuthorID,ReleaseYear,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
+     res=query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
      res=query.exec("insert into Songs(Name,AlbumID) values('Wesleys Theory',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
      res=query.exec("insert into Songs(Name,AlbumID) values('For Free?',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
      res=query.exec("insert into Songs(Name,AlbumID) values('King Kunta',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
@@ -92,7 +92,7 @@ QString DbManager::getInitScriptForAlbums()
             "    [AlbumID] INTEGER PRIMARY KEY AUTOINCREMENT," \
             "   [AuthorID] INTEGER not null," \
             "  [Name] nvarchar(300) not null," \
-            " [ReleaseYear] INTEGER not null," \
+            " [Year] INTEGER not null," \
             " [GenreID] INTEGER," \
 
             "     foreign key(AuthorID) references Authors(AuthorID)," \
