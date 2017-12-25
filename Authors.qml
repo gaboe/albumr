@@ -18,15 +18,17 @@ Item {
             anchors.fill: parent
             model: authorService.getAuthors()
             delegate: Text {
+                property int authorID: list.model[index].authorID
                 text: list.model[index].authorID + " " + list.model[index].firstName
                       + " " + list.model[index].lastName
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: list.currentIndex = index
+                }
             }
             focus: true
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    layout.state = "author-detail-view"
-                }
+            onCurrentItemChanged: {
+                console.log(list.model[list.currentIndex].authorID)
             }
         }
     }
