@@ -18,6 +18,9 @@ ListView {
         width: parent.width
         MouseArea {
             onClicked: {
+                if(stateName == "authors-view"){
+                    authorService.setNewAuthors();
+                }
                 layout.state = stateName
             }
             anchors.fill: parent

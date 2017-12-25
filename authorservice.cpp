@@ -9,7 +9,7 @@ AuthorService::AuthorService(QObject *parent) : QObject(parent)
 {
 }
 
-QList<QVariant> AuthorService::getAuthors()
+QList<QVariant> AuthorService::getNewAuthors()
 {
     QSqlQuery query;
     QString queryString = "SELECT AuthorID, FirstName, LastName FROM Authors";
@@ -23,7 +23,6 @@ QList<QVariant> AuthorService::getAuthors()
         author->setFirstName(record.value("FirstName").toString());
         author->setLastName(record.value("LastName").toString());
         author->setAuthorID(record.value("AuthorID").toInt());
-        qDebug() << author->authorID();
         QVariant v = QVariant::fromValue(author);
         list->insert(list->size(),v);
     }
@@ -48,4 +47,13 @@ QVariant AuthorService::getAuthor(int authorID)
         QVariant v = QVariant::fromValue(author);
         return v;
     }
+}
+
+QVariant AuthorService::addAuthor(QString firstName,QString lastName)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO Authors(FirstName,LastName) values (:firstName,:lastName)");
+    query.bindValue(":firstName",firstName);
+    query.bindValue(":lastName", lastName);
+    qDebug() << query.exec();
 }

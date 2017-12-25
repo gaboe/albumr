@@ -4,6 +4,12 @@ import QtQuick.Controls.Material 2.3
 
 Item {
     id: albumDetail
+    property int albumID: albumService.albumDetail.albumID
+    function addSong() {
+        albumService.addSong(textEdit.text, albumDetail.albumID)
+        albumService.setNewSongs(albumDetail.albumID)
+        textEdit.text = ""
+    }
     Image {
         id: albumCover
         sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
@@ -68,6 +74,7 @@ Item {
     }
 
     TextEdit {
+
         y: 200
         id: textEdit
         width: 200
@@ -75,7 +82,7 @@ Item {
         font.pointSize: 24
         property string placeholderText: "Add new song..."
         Keys.onEnterPressed: {
-            console.log(text)
+            addSong()
         }
         Text {
             font.pointSize: 24
@@ -87,13 +94,9 @@ Item {
             x: 300
             text: "Add"
             highlighted: true
-            Material.accent: Material.Indigo
+            Material.accent: Material.BlueGrey
             onClicked: {
-                albumService.addSong(textEdit.text,
-                                     albumService.albumDetail.albumID)
-                albumService.setAlbumDetail(albumService.albumDetail.albumID)
-                albumService.setNewSongs(albumService.albumDetail.albumID)
-                textEdit.text = ""
+                addSong()
             }
         }
     }
