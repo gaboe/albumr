@@ -97,3 +97,12 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
     }
     return *list;
 }
+
+void AlbumService::addSong(QString name, int albumID)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO Songs(Name,AlbumID) VALUES (:name, :albumID)");
+    query.bindValue(":name",name);
+    query.bindValue(":albumID", albumID);
+    query.exec();
+}

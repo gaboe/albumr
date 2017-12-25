@@ -64,9 +64,10 @@ Item {
         height: 100
         font.pointSize: 24
         property string placeholderText: "Add new song..."
-
+        Keys.onEnterPressed: {
+            console.log(text)
+        }
         Text {
-            id: newSongInput
             font.pointSize: 24
             text: textEdit.placeholderText
             color: "#aaa"
@@ -75,9 +76,13 @@ Item {
         Button {
             x: 300
             text: "Add"
-
             highlighted: true
             Material.accent: Material.Indigo
+            onClicked: {
+                albumService.addSong(textEdit.text,
+                                     albumService.albumDetail.albumID)
+                console.log()
+            }
         }
     }
 
