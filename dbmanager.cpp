@@ -46,7 +46,8 @@ void DbManager::seed()
 
     query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
     query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Yeezus',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kanye' and Authors.LastName= 'West'),2013,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Nights',(select Authors.AuthorID from Authors where Authors.FirstName = 'Frank' and Authors.LastName= 'Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'R&B'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Blonde',(select Authors.AuthorID from Authors where Authors.FirstName = 'Frank' and Authors.LastName= 'Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'R&B'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('DAMN.',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
 
     query.exec("insert into Songs(Name,AlbumID) values('Wesleys Theory',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
     query.exec("insert into Songs(Name,AlbumID) values('For Free?',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
@@ -55,6 +56,17 @@ void DbManager::seed()
     query.exec("insert into Songs(Name,AlbumID) values('Alright',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
     query.exec("insert into Songs(Name,AlbumID) values('i',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
     query.exec("insert into Songs(Name,AlbumID) values('Mortal Man',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
+
+    query.exec("insert into Songs(Name,AlbumID) values('On sight',(select Albums.AlbumID from Albums where Albums.Name = 'Yeezus'));");
+    query.exec("insert into Songs(Name,AlbumID) values('I am a God',(select Albums.AlbumID from Albums where Albums.Name = 'Yeezus'));");
+
+    query.exec("insert into Songs(Name,AlbumID) values('Nikes',(select Albums.AlbumID from Albums where Albums.Name = 'Blonde'));");
+    query.exec("insert into Songs(Name,AlbumID) values('Nights',(select Albums.AlbumID from Albums where Albums.Name = 'Blonde'));");
+    query.exec("insert into Songs(Name,AlbumID) values('Pink and Yellow',(select Albums.AlbumID from Albums where Albums.Name = 'Blonde'));");
+
+    query.exec("insert into Songs(Name,AlbumID) values('Humble',(select Albums.AlbumID from Albums where Albums.Name = 'DAMN.'));");
+    query.exec("insert into Songs(Name,AlbumID) values('Duckworth',(select Albums.AlbumID from Albums where Albums.Name = 'DAMN.'));");
+
 }
 
 void DbManager::init()

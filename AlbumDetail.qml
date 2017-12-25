@@ -10,7 +10,7 @@ Item {
     }
 
     Text {
-        y: 20
+        y: 30
         id: albumDetailName
         text: "Name: " + albumService.albumDetail.name
     }
@@ -27,8 +27,13 @@ Item {
         text: "Genre: " + albumService.albumDetail.albumID
     }
 
-    Rectangle {
+    Text {
         y: 80
+        text: "Songs: "
+    }
+
+    Rectangle {
+        y: 100
         width: ((layout.width - leftMenu.width) * .75)
         height: layout.height
         ListView {
