@@ -101,6 +101,8 @@ Item {
             visible: !textEdit.text
         }
         Button {
+            height: 40
+            width: 60
             anchors.margins: 15
             anchors.left: addSongPlaceholder.right
             text: "Add"
