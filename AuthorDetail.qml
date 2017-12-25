@@ -28,8 +28,39 @@ Item {
             id: songs
             anchors.fill: parent
             model: albumService.authorAlbums
-            delegate: Text {
-                text: albumService.authorAlbums[index].name
+            delegate: Rectangle {
+                width: ((layout.width - leftMenu.width) / 4) - 8
+                height: ((layout.width - leftMenu.width) / 4) - 8
+                Image {
+                    id: albumCover
+                    sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
+                    sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
+                    fillMode: Image.PreserveAspectFit
+                    source: applicationPath + "/"
+                            + albumService.authorAlbums[index].albumID + ".jpg"
+                }
+
+                Text {
+                    id: albumName
+                    anchors.top: albumCover.bottom
+                    text: albumService.authorAlbums[index].name
+                }
+
+                Text {
+                    id: albumYear
+                    anchors.top: albumName.bottom
+                    text: albumService.authorAlbums[index].year
+                }
+                MouseArea {
+                    anchors.fill: albumCover
+                    onClicked: {
+                        albumService.setAlbumDetail(
+                                    albumService.authorAlbums[index])
+                        albumService.setNewSongs(
+                                    albumService.authorAlbums[index].albumID)
+                        layout.state = "album-detail-view"
+                    }
+                }
             }
             focus: true
         }
