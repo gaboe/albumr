@@ -18,7 +18,8 @@ Item {
             anchors.fill: parent
             model: authorService.getAuthors()
             delegate: Text {
-                text: "Author: " + list.model[index].firstName
+                text: list.model[index].authorID + " " + list.model[index].firstName
+                      + " " + list.model[index].lastName
             }
             focus: true
             MouseArea {
