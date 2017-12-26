@@ -75,6 +75,7 @@ Item {
                 text: list.model[index].authorID + " " + list.model[index].firstName
                       + " " + list.model[index].lastName
                 MouseArea {
+                    cursorShape: Qt.PointingHandCursor
                     anchors.fill: parent
                     onClicked: {
                         layout.state = "author-detail-view"

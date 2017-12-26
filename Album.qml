@@ -4,7 +4,6 @@ import QtQuick.Controls.Styles 1.4
 
 Component {
     id: album
-
     Rectangle {
         width: ((layout.width - leftMenu.width) / 4) - 8
         height: ((layout.width - leftMenu.width) / 4) - 8
@@ -29,6 +28,7 @@ Component {
         }
         MouseArea {
             anchors.fill: albumCover
+            cursorShape: Qt.PointingHandCursor
             onClicked: {
                 albumService.setNewAlbumDetail(
                             albumsRepeater.model[index].albumID)

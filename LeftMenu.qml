@@ -17,13 +17,15 @@ ListView {
         text: name
         width: parent.width
         MouseArea {
+            cursorShape: Qt.PointingHandCursor
+            anchors.fill: parent
+
             onClicked: {
-                if(stateName == "authors-view"){
-                    authorService.setNewAuthors();
+                if (stateName == "authors-view") {
+                    authorService.setNewAuthors()
                 }
                 layout.state = stateName
             }
-            anchors.fill: parent
         }
     }
 }

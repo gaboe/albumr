@@ -41,9 +41,9 @@ Item {
         text: "Author: " + albumService.albumDetail.authorName
         property int authorID: albumService.albumDetail.authorID
         MouseArea {
+            cursorShape: Qt.PointingHandCursor
             anchors.fill: albumDetailAuthorName
             onClicked: {
-                console.log(albumDetailAuthorName.authorID)
                 layout.state = "author-detail-view"
                 authorService.setNewAuthorDetail(albumDetailAuthorName.authorID)
                 albumService.setNewAuthorAlbums(albumDetailAuthorName.authorID)
