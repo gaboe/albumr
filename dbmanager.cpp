@@ -38,15 +38,18 @@ void DbManager::seed()
 {
     qInfo() << "Seeding db";
     QSqlQuery query;
+    query.exec("insert into Genres(Name) values ('Rock');");
     query.exec("insert into Genres(Name) values ('Rap');");
-    query.exec("insert into Genres(Name) values ('R&B');");
+    query.exec("insert into Genres(Name) values ('Pop');");
+    query.exec("insert into Genres(Name) values ('Metal');");
+    query.exec("insert into Genres(Name) values ('RnB');");
     query.exec("insert into Authors(FirstName,LastName) values ('Kendrick','Lammar');");
     query.exec("insert into Authors(FirstName,LastName) values ('Kanye','West');");
     query.exec("insert into Authors(FirstName,LastName) values ('Frank','Ocean');");
 
     query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
     query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Yeezus',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kanye' and Authors.LastName= 'West'),2013,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Blonde',(select Authors.AuthorID from Authors where Authors.FirstName = 'Frank' and Authors.LastName= 'Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'R&B'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Blonde',(select Authors.AuthorID from Authors where Authors.FirstName = 'Frank' and Authors.LastName= 'Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'RnB'));");
     query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('DAMN.',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
 
     query.exec("insert into Songs(Name,AlbumID) values('Wesleys Theory',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");

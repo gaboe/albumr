@@ -4,9 +4,25 @@
 #include "author.h"
 #include <QObject>
 #include "authorservice.h"
+#include "genre.h"
 
 AuthorService::AuthorService(QObject *parent) : QObject(parent)
 {
+}
+
+QList<QString> AuthorService::getGenres()
+{
+    QSqlQuery query;
+    QString queryString = "SELECT GenreID, Name FROM Genres";
+
+    query.exec(queryString);
+    auto list = new QList<QString>();
+    while (query.next()) {
+        QSqlRecord record = query.record();
+        list->insert(list->size(),record.value("Name").toString());
+        qDebug() << record.value("Name").toString();
+    }
+    return *list;
 }
 
 QList<QVariant> AuthorService::getNewAuthors()

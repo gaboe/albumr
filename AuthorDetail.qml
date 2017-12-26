@@ -10,7 +10,8 @@ Item {
     function addAlbum() {
         if (textEdit.text != "") {
             albumService.addAlbum(textEdit.text,
-                                  authorService.authorDetail.authorID, 2017, 1)
+                                  authorService.authorDetail.authorID, 2017,
+                                  combobox.currentGenre)
             albumService.setNewAuthorAlbums(authorService.authorDetail.authorID)
             textEdit.text = ""
         }
@@ -26,30 +27,70 @@ Item {
         id: authorDetailName
         anchors.bottomMargin: 20
     }
+    anchors.top: authorDetailName.bottom
+    Item {
+        id: addAlbumWrapper
+        width: authorDetail.width
+        height: 60
+        TextEdit {
 
-    TextEdit {
+            //anchors.left: authorAlbumsWrapper.right
+            anchors.top: authorDetailName.bottom
+            anchors.margins: 20
+            id: textEdit
+            width: 100
+            height: 50
+            font.pointSize: 15
+            property string placeholderText: "Add new album..."
+            Keys.onEnterPressed: {
+                addAlbum()
+            }
+            Text {
+                id: addAlbumPlaceholder
+                text: textEdit.placeholderText
+                color: "#aaa"
+                visible: !textEdit.text
+            }
+        }
 
-        //anchors.left: authorAlbumsWrapper.right
-        anchors.top: authorDetailName.bottom
-        anchors.margins: 20
-        id: textEdit
-        width: 200
-        height: 50
-        property string placeholderText: "Add new album..."
-        Keys.onEnterPressed: {
-            addAlbum()
+        ComboBox {
+            anchors.top: authorDetailName.bottom
+            anchors.verticalCenter: textEdit.verticalCenter
+            anchors.left: textEdit.right
+            id: combobox
+            currentIndex: 2
+            anchors.margins: 20
+            property string currentGenre: "Rock"
+            model: ListModel {
+                id: cbItems
+                ListElement {
+                    text: "Rock"
+                }
+                ListElement {
+                    text: "Rap"
+                }
+                ListElement {
+                    text: "Pop"
+                }
+                ListElement {
+                    text: "Metal"
+                }
+                ListElement {
+                    text: "RnB"
+                }
+            }
+            onCurrentIndexChanged: combobox.currentGenre = cbItems.get(
+                                       currentIndex).text
+
+            width: 200
         }
-        Text {
-            id: addAlbumPlaceholder
-            text: textEdit.placeholderText
-            color: "#aaa"
-            visible: !textEdit.text
-        }
+
         Button {
             height: 40
             width: 60
             anchors.margins: 15
-            anchors.left: addAlbumPlaceholder.right
+            anchors.verticalCenter: combobox.verticalCenter
+            anchors.left: combobox.right
             text: "Add"
             highlighted: true
             Material.accent: Material.BlueGrey
@@ -58,11 +99,11 @@ Item {
             }
         }
     }
+
     Rectangle {
         id: authorAlbumsWrapper
-        anchors.top: textEdit.bottom
+        anchors.top: addAlbumWrapper.bottom
         x: authorDetail.width * 0.15
-        anchors.topMargin: 50
         width: ((layout.width - leftMenu.width) * .3)
         height: layout.height
         ListView {
@@ -118,7 +159,6 @@ Item {
             focus: true
         }
     }
-
     state: "hidden"
     states: [
         State {

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVariant>
 #include <QDebug>
+#include <QSqlQuery>
 #include "album.h"
 
 class AlbumService : public QObject
@@ -22,7 +23,7 @@ public:
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);
     Q_INVOKABLE QList<QVariant> getAlbums(int authorID);
     Q_INVOKABLE void addSong(QString name,int albumID);
-    Q_INVOKABLE void addAlbum(QString name, int authorID,int year, int genreID);
+    Q_INVOKABLE void addAlbum(QString name, int authorID,int year, QString genreName);
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
     Q_PROPERTY(QList<QVariant> songs READ songs WRITE setSongs NOTIFY songsChanged)
     Q_PROPERTY(QList<QVariant> authorAlbums READ authorAlbums WRITE setAuthorAlbums NOTIFY authorAlbumsChanged)

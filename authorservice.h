@@ -11,13 +11,17 @@ class AuthorService : public QObject
 
     QList<QVariant> m_authors;
 
+    QList<QString> m_genres;
+
 public:
     explicit AuthorService(QObject *parent = nullptr);
+    QList<QString> getGenres();
     Q_INVOKABLE QList<QVariant> getNewAuthors();
     Q_INVOKABLE QVariant getAuthor(int authorID);
     Q_INVOKABLE void addAuthor(QString firstName,QString lastName);
     Q_PROPERTY(QVariant authorDetail READ authorDetail WRITE setAuthorDetail NOTIFY authorDetailChanged)
     Q_PROPERTY(QList<QVariant> authors READ authors WRITE setAuthors NOTIFY authorsChanged)
+    Q_PROPERTY(QList<QString> genres READ genres WRITE setGenres NOTIFY genresChanged)
 
 QVariant authorDetail() const
 {
@@ -28,7 +32,17 @@ QList<QVariant> authors() const
     return m_authors;
 }
 
+QList<QString> genres() const
+{
+    return m_genres;
+}
+
 public slots:
+
+void refreshGenres(){
+    auto genres = getGenres();
+    setGenres(genres);
+}
 
 void setNewAuthors(){
     auto authors = getNewAuthors();
@@ -57,9 +71,15 @@ void setAuthors(QList<QVariant> authors)
     emit authorsChanged(m_authors);
 }
 
+void setGenres(QList<QString> genres)
+{
+    m_genres = genres;
+}
+
 signals:
 void authorDetailChanged(QVariant authorDetail);
 void authorsChanged(QList<QVariant> authors);
+void genresChanged(QList<QString> genres);
 };
 
 #endif // AUTHORSERVICE_H

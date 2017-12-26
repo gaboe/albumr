@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QSqlError>
 
 AlbumService::AlbumService(QObject *parent) : QObject(parent)
 {
@@ -108,15 +109,43 @@ void AlbumService::addSong(QString name, int albumID)
     query.bindValue(":name",name);
     query.bindValue(":albumID", albumID);
     query.exec();
+    QString str = query.lastQuery();
+    QMapIterator<QString, QVariant> it(query.boundValues());
+
+    it.toBack();
+
+    while (it.hasPrevious())
+    {
+        it.previous();
+        str.replace(it.key(),it.value().toString());
+    }
+    qDebug() << str;
 }
 
-void AlbumService::addAlbum(QString name, int authorID,int year, int genreID)
+void AlbumService::addAlbum(QString name, int authorID,int year, QString genreName)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO Albums(Name,AuthorID,Year,GenreID) VALUES (:name,:authorID,:year,:genreID)");
+    query.prepare("INSERT INTO Albums(Name,AuthorID,Year,GenreID) VALUES (:name,:authorID,:year,(SELECT Genres.GenreID FROM Genres WHERE Genres.Name = :genreName LIMIT 1))");
     query.bindValue(":name",name);
     query.bindValue(":authorID", authorID);
     query.bindValue(":year",year);
-    query.bindValue(":genreID",genreID);
-    query.exec();
+    query.bindValue(":genreName",genreName);
+
+    qDebug() << query.exec();
+    qDebug() << genreName;
+
+    qDebug() << query.lastError();
+    qDebug() << query.lastQuery();
+
+    QString str = query.lastQuery();
+    QMapIterator<QString, QVariant> it(query.boundValues());
+
+    it.toBack();
+
+    while (it.hasPrevious())
+    {
+        it.previous();
+        str.replace(it.key(),it.value().toString());
+    }
+    qDebug() << str;
 }

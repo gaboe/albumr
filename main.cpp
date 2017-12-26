@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     auto authorService = new AuthorService();
     auto albumService = new AlbumService();
-
+    authorService->refreshGenres();
     //QObject::connect(&albumService,&AlbumService::albumDetailChanged,&albumService,&AlbumService::setSongs);
 
     QQmlApplicationEngine engine;
