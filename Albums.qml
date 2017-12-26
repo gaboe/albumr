@@ -14,7 +14,11 @@ Item {
                                   filterByGenreTextEdit.text,
                                   filterByYearTextEdit.text)
     }
-
+    function redirectToAlbumDetail(index) {
+        albumService.setNewAlbumDetail(albumService.albums[index].albumID)
+        albumService.setNewSongs(albumService.albums[index].albumID)
+        layout.state = "album-detail-view"
+    }
     Text {
         anchors.top: albums.bottom
         anchors.centerIn: albums
@@ -27,6 +31,7 @@ Item {
         id: filtersWrapper
         anchors.top: albumsHeader.bottom
         width: albums.width
+        height: 50
         TextEdit {
             anchors.top: filtersWrapper.top
             anchors.margins: 20
@@ -83,17 +88,22 @@ Item {
         }
     }
 
-    Grid {
-        anchors.top: filtersWrapper.bottom
-        anchors.topMargin: 50
-        id: grid
-        anchors.fill: parent
-        anchors.margins: 8
-        spacing: 4
+    Rectangle {
 
-        Repeater {
-            id: albumsRepeater
+        id: authorAlbumsWrapper
+        anchors.top: filtersWrapper.bottom
+        x: authorDetail.width * 0.10
+        width: (layout.width - leftMenu.width)
+        height: layout.height
+        ListView {
+            anchors.top: filtersWrapper.bottom
+            id: authorAlbums
+            height: layout.height
+            width: (layout.width - leftMenu.width)
+            anchors.fill: parent
             model: albumService.albums
+            clip: true
+            focus: true
             delegate: Album {
             }
         }

@@ -8,5 +8,7 @@
         <file>Authors.qml</file>
         <file>AuthorDetail.qml</file>
         <file>AlbumDetail.qml</file>
+        <file>AddAlbum.qml</file>
+        <file>AuthorAlbums.qml</file>
     </qresource>
 </RCC>
