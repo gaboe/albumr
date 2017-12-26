@@ -13,7 +13,7 @@ Item {
         albumService.setNewSongs(albumService.authorAlbums[index].albumID)
         layout.state = "album-detail-view"
     }
-    Text {
+    TextEdit {
         anchors.top: authorDetail.anchors.top
         anchors.centerIn: authorDetail
 
@@ -22,6 +22,20 @@ Item {
         text: authorService.authorDetail.name
         id: authorDetailName
         anchors.bottomMargin: 20
+
+        onTextChanged: {
+            authorService.updateAuthorName(authorDetailName.text,
+                                           authorService.authorDetail.authorID)
+        }
+
+        Image {
+            anchors.bottom: authorDetail.anchors.bottom
+            anchors.left: authorDetailName.right
+            id: icon
+            source: applicationPath + "/pencil.svg"
+            sourceSize.height: 14
+            sourceSize.width: 14
+        }
     }
     AddAlbum {
         id: addAlbumWrapper

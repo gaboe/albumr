@@ -68,3 +68,12 @@ void AuthorService::addAuthor(QString name)
     query.bindValue(":name",name);
     query.exec();
 }
+
+void AuthorService::updateAuthorName(QString name, int authorID)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE Authors SET name = :name WHERE Authors.AuthorID = :authorID");
+    query.bindValue(":name",name);
+    query.bindValue(":authorID",authorID);
+    qDebug() << query.exec();
+}
