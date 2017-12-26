@@ -7,6 +7,11 @@ Component {
     Rectangle {
         width: ((layout.width - leftMenu.width) / 4) - 8
         height: ((layout.width - leftMenu.width) / 4) - 8
+        function redirectToDetail() {
+            albumService.setNewAlbumDetail(albumsRepeater.model[index].albumID)
+            albumService.setNewSongs(albumsRepeater.model[index].albumID)
+            layout.state = "album-detail-view"
+        }
         Image {
             id: albumCover
             sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
@@ -19,21 +24,32 @@ Component {
             id: albumName
             anchors.top: albumCover.bottom
             text: albumsRepeater.model[index].name
+            MouseArea {
+                anchors.fill: albumName
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    redirectToDetail()
+                }
+            }
         }
 
         Text {
             id: albumYear
             anchors.top: albumName.bottom
             text: albumsRepeater.model[index].year
+            MouseArea {
+                anchors.fill: albumYear
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    redirectToDetail()
+                }
+            }
         }
         MouseArea {
             anchors.fill: albumCover
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-                albumService.setNewAlbumDetail(
-                            albumsRepeater.model[index].albumID)
-                albumService.setNewSongs(albumsRepeater.model[index].albumID)
-                layout.state = "album-detail-view"
+                redirectToDetail()
             }
         }
     }

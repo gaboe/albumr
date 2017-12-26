@@ -58,7 +58,6 @@ Item {
             anchors.verticalCenter: textEdit.verticalCenter
             anchors.left: textEdit.right
             id: combobox
-            currentIndex: 2
             anchors.margins: 20
             property string currentGenre: "Rock"
             model: ListModel {
