@@ -26,35 +26,41 @@ Item {
         font.pixelSize: 12
         text: "Add new author:"
         id: addNewAuthorHeader
-        anchors.top: authorsHeader
+        anchors.top: authorsHeader.bottom
+        height: 20
     }
 
     Item {
         id: addAuthorWrapper
         anchors.top: addNewAuthorHeader.bottom
-        TextEdit {
-            y: 40
-            id: textEdit
-            width: 150
-            height: 10
-            font.pointSize: 15
+        height: 80
 
-            property string placeholderText: "Name..."
+        TextEdit {
+            anchors.verticalCenter: addAuthorWrapper.verticalCenter
+            anchors.top: addNewAuthorHeader.bottom
+            anchors.margins: 20
+            id: textEdit
+            width: 200
+            font.pointSize: 15
+            property string placeholderText: "New author..."
             Keys.onEnterPressed: {
                 addAuthor()
             }
             Text {
-                text: textEdit.placeholderText
                 font.pointSize: 15
+                id: addAlbumPlaceholder
+                text: textEdit.placeholderText
                 color: "#aaa"
                 visible: !textEdit.text
             }
         }
 
         Button {
-            x: 280
-            font.pointSize: 15
-            anchors.centerIn: textEdit.verticalCenter
+            height: 40
+            width: 60
+            anchors.margins: 15
+            anchors.verticalCenter: addAuthorWrapper.verticalCenter
+            anchors.left: textEdit.right
             text: "Add"
             highlighted: true
             Material.accent: Material.BlueGrey
