@@ -82,7 +82,7 @@ QList<QVariant> AlbumService::getSongs(int albumID)
     return *list;
 }
 
-QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,int year /*= -1*/)
+QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QString year)
 {
 
     QSqlQuery query;
@@ -90,7 +90,7 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,int ye
 
     auto filterByAuthorName = !authorName.isNull() && !authorName.isEmpty();
     auto filterByGenre= !genre.isNull() && !genre.isEmpty();
-    auto filterByYear = year != -1 && year != 0;
+    auto filterByYear = !year.isNull() && !year.isEmpty();
 
     if(filterByAuthorName || filterByGenre || filterByYear){
         queryString.append(" WHERE ");
@@ -99,11 +99,11 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,int ye
     if(filterByAuthorName)
     {
         queryString
-                .append("Authors.FirstName LIKE '%")
+                .append("(Authors.FirstName LIKE '%")
                 .append(authorName)
                 .append("%' OR Authors.LastName LIKE '%")
                 .append(authorName)
-                .append("%'");
+                .append("%')");
     }
 
     if(filterByGenre){
@@ -121,8 +121,9 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,int ye
             queryString.append(" AND ");
         }
         queryString
-                .append("Albums.Year = ")
-                .append(QString::number(year));
+                .append("cast(Albums.Year as text) LIKE '%")
+                .append(year)
+                .append("%'");
     }
     qDebug() << queryString;
 

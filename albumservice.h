@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE QVariant getAlbum(int albumID);
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);
     Q_INVOKABLE QList<QVariant> getAlbums(int authorID);
-    QList<QVariant> getAlbums(QString authorName,QString genre,int year = -1);
+    QList<QVariant> getAlbums(QString authorName,QString genre,QString year);
     Q_INVOKABLE void addSong(QString name,int albumID);
     Q_INVOKABLE void addAlbum(QString name, int authorID,int year, QString genreName);
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
@@ -86,7 +86,7 @@ void albumsChanged(QList<QVariant> albums);
 
 public slots:
 
-void filterAlbums(QString authorName,QString genre,int year){
+void filterAlbums(QString authorName,QString genre,QString year){
     auto albums = getAlbums(authorName,genre,year);
     setAlbums(albums);
 }
