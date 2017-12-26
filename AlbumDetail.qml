@@ -31,7 +31,7 @@ Item {
         sourceSize.height: (layout.width - leftMenu.width) * 0.3
         sourceSize.width: (layout.width - leftMenu.width) * 0.3
         fillMode: Image.PreserveAspectFit
-        source: applicationPath + "/" + albumService.albumDetail.albumID + ".jpg"
+        source: fileUtils.getImagePath(albumService.albumDetail.albumID)
     }
 
     Text {

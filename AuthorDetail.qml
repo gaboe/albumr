@@ -16,7 +16,11 @@ Item {
             textEdit.text = ""
         }
     }
-
+    function redirectToAlbumDetail(index) {
+        albumService.setNewAlbumDetail(albumService.authorAlbums[index].albumID)
+        albumService.setNewSongs(albumService.authorAlbums[index].albumID)
+        layout.state = "album-detail-view"
+    }
     Text {
         anchors.top: authorDetail.anchors.top
         anchors.centerIn: authorDetail
@@ -33,8 +37,6 @@ Item {
         width: authorDetail.width
         height: 60
         TextEdit {
-
-            //anchors.left: authorAlbumsWrapper.right
             anchors.top: authorDetailName.bottom
             anchors.margins: 20
             id: textEdit
@@ -53,10 +55,31 @@ Item {
             }
         }
 
+        TextEdit {
+            anchors.top: authorDetailName.bottom
+            anchors.left: textEdit.right
+            anchors.margins: 20
+            id: yearTextEdit
+            width: 100
+            height: 50
+            font.pointSize: 15
+            property string placeholderText: "year"
+
+            Keys.onEnterPressed: {
+                addAlbum()
+            }
+            Text {
+                id: yearTextEditPlaceholed
+                text: yearTextEdit.placeholderText
+                color: "#aaa"
+                visible: !yearTextEdit.text
+            }
+        }
+
         ComboBox {
             anchors.top: authorDetailName.bottom
             anchors.verticalCenter: textEdit.verticalCenter
-            anchors.left: textEdit.right
+            anchors.left: yearTextEdit.right
             id: combobox
             anchors.margins: 20
             property string currentGenre: "Rock"
@@ -100,6 +123,7 @@ Item {
     }
 
     Rectangle {
+
         id: authorAlbumsWrapper
         anchors.top: addAlbumWrapper.bottom
         x: authorDetail.width * 0.15
@@ -118,8 +142,8 @@ Item {
                     sourceSize.height: (layout.width - leftMenu.width) * 0.25
                     sourceSize.width: (layout.width - leftMenu.width) * 0.25
                     fillMode: Image.PreserveAspectFit
-                    source: applicationPath + "/"
-                            + albumService.authorAlbums[index].albumID + ".jpg"
+                    source: fileUtils.getImagePath(
+                                albumService.authorAlbums[index].albumID)
                 }
 
                 Text {
@@ -128,6 +152,13 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: albumCover.right
                     text: albumService.authorAlbums[index].name
+                    MouseArea {
+                        anchors.fill: albumName
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            redirectToAlbumDetail(index)
+                        }
+                    }
                 }
 
                 Text {
@@ -136,6 +167,13 @@ Item {
                     anchors.top: albumName.bottom
                     anchors.left: albumCover.right
                     text: albumService.authorAlbums[index].year
+                    MouseArea {
+                        anchors.fill: albumYear
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            redirectToAlbumDetail(index)
+                        }
+                    }
                 }
                 Text {
                     anchors.leftMargin: 15
@@ -143,15 +181,19 @@ Item {
                     anchors.top: albumYear.bottom
                     anchors.left: albumCover.right
                     text: albumService.authorAlbums[index].genreName
+                    MouseArea {
+                        anchors.fill: albumGenre
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            redirectToAlbumDetail(index)
+                        }
+                    }
                 }
                 MouseArea {
                     anchors.fill: albumCover
+                    cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        albumService.setNewAlbumDetail(
-                                    albumService.authorAlbums[index].albumID)
-                        albumService.setNewSongs(
-                                    albumService.authorAlbums[index].albumID)
-                        layout.state = "album-detail-view"
+                        redirectToAlbumDetail(index)
                     }
                 }
             }

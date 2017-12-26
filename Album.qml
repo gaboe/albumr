@@ -12,44 +12,45 @@ Component {
             albumService.setNewSongs(albumsRepeater.model[index].albumID)
             layout.state = "album-detail-view"
         }
+
         Image {
             id: albumCover
             sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             fillMode: Image.PreserveAspectFit
-            source: applicationPath + "/" + albumsRepeater.model[index].albumID + ".jpg"
-        }
+            source: fileUtils.getImagePath(albumsRepeater.model[index].albumID)
 
-        Text {
-            id: albumName
-            anchors.top: albumCover.bottom
-            text: albumsRepeater.model[index].name
+            Text {
+                id: albumName
+                anchors.top: albumCover.bottom
+                text: albumsRepeater.model[index].name
+                MouseArea {
+                    anchors.fill: albumName
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        redirectToDetail()
+                    }
+                }
+            }
+
+            Text {
+                id: albumYear
+                anchors.top: albumName.bottom
+                text: albumsRepeater.model[index].year
+                MouseArea {
+                    anchors.fill: albumYear
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        redirectToDetail()
+                    }
+                }
+            }
             MouseArea {
-                anchors.fill: albumName
+                anchors.fill: albumCover
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     redirectToDetail()
                 }
-            }
-        }
-
-        Text {
-            id: albumYear
-            anchors.top: albumName.bottom
-            text: albumsRepeater.model[index].year
-            MouseArea {
-                anchors.fill: albumYear
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    redirectToDetail()
-                }
-            }
-        }
-        MouseArea {
-            anchors.fill: albumCover
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                redirectToDetail()
             }
         }
     }
