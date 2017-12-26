@@ -8,12 +8,13 @@ Item {
     width: (layout.width - leftMenu.width)
     anchors.topMargin: 20
     function addAlbum() {
-        if (textEdit.text != "") {
+        if (textEdit.text != "" && !/\D/.test(yearTextEdit.text)) {
             albumService.addAlbum(textEdit.text,
-                                  authorService.authorDetail.authorID, 2017,
-                                  combobox.currentGenre)
+                                  authorService.authorDetail.authorID,
+                                  yearTextEdit.text, combobox.currentGenre)
             albumService.setNewAuthorAlbums(authorService.authorDetail.authorID)
             textEdit.text = ""
+            yearTextEdit.text = ""
         }
     }
     function redirectToAlbumDetail(index) {
