@@ -82,6 +82,68 @@ QList<QVariant> AlbumService::getSongs(int albumID)
     return *list;
 }
 
+QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,int year /*= -1*/)
+{
+
+    QSqlQuery query;
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+
+    auto filterByAuthorName = !authorName.isNull() && !authorName.isEmpty();
+    auto filterByGenre= !genre.isNull() && !genre.isEmpty();
+    auto filterByYear = year != -1 && year != 0;
+
+    if(filterByAuthorName || filterByGenre || filterByYear){
+        queryString.append(" WHERE ");
+    }
+
+    if(filterByAuthorName)
+    {
+        queryString
+                .append("Authors.FirstName LIKE '%")
+                .append(authorName)
+                .append("%' OR Authors.LastName LIKE '%")
+                .append(authorName)
+                .append("%'");
+    }
+
+    if(filterByGenre){
+        if(filterByAuthorName){
+            queryString.append(" AND ");
+        }
+
+        queryString
+                .append("Genres.Name LIKE '%")
+                .append(genre)
+                .append("%'");
+    }
+    if(filterByYear){
+        if(filterByAuthorName || filterByGenre){
+            queryString.append(" AND ");
+        }
+        queryString
+                .append("Albums.Year = ")
+                .append(QString::number(year));
+    }
+    qDebug() << queryString;
+
+    query.exec(queryString);
+    auto list = new QList<QVariant>();
+    while (query.next()) {
+        QSqlRecord record = query.record();
+
+        auto album = new Album();
+        album->setAlbumID(record.value("AlbumID").toInt());
+        album->setName(record.value("Name").toString());
+        album->setYear(record.value("Year").toInt());
+        album->setGenreName(record.value("GenreName").toString());
+        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setImagePath(getImagePath(album->albumID()));
+        QVariant v = QVariant::fromValue(album);
+        list->insert(list->size(),v);
+    }
+    return *list;
+}
+
 QList<QVariant> AlbumService::getAlbums(int authorID)
 {
 
@@ -100,6 +162,7 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
         album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setImagePath(getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
         list->insert(list->size(),v);
     }

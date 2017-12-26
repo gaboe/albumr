@@ -9,6 +9,11 @@ Item {
     id: albums
     property variant colorArray: ["#00bde3", "#67c111", "#ea7025"]
     state: "focused"
+    function filter() {
+        albumService.filterAlbums(filterByNameTextEdit.text,
+                                  filterByGenreTextEdit.text,
+                                  filterByYearTextEdit.text)
+    }
 
     Text {
         anchors.top: albums.bottom
@@ -29,8 +34,8 @@ Item {
             width: 200
             height: 50
             property string placeholderText: "Author name..."
-            Keys.onEnterPressed: {
-                addSong()
+            onTextChanged: {
+                filter()
             }
             Text {
                 id: filterByNameTextEditPlaceholder
@@ -47,8 +52,8 @@ Item {
             width: 200
             height: 50
             property string placeholderText: "Year..."
-            Keys.onEnterPressed: {
-                addSong()
+            onTextChanged: {
+                filter()
             }
             Text {
                 id: filterByYearTextEditPlaceholder
@@ -65,9 +70,10 @@ Item {
             width: 200
             height: 50
             property string placeholderText: "Genre..."
-            Keys.onEnterPressed: {
-                addSong()
+            onTextChanged: {
+                filter()
             }
+
             Text {
                 id: filterByGenreTextEditPlaceholder
                 text: filterByGenreTextEdit.placeholderText
@@ -90,6 +96,7 @@ Item {
     }
 
     Grid {
+        anchors.top: filtersWrapper.bottom
         anchors.topMargin: 50
         id: grid
         anchors.fill: parent

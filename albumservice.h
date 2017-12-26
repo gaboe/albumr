@@ -27,13 +27,13 @@ public:
     Q_INVOKABLE QVariant getAlbum(int albumID);
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);
     Q_INVOKABLE QList<QVariant> getAlbums(int authorID);
+    QList<QVariant> getAlbums(QString authorName,QString genre,int year = -1);
     Q_INVOKABLE void addSong(QString name,int albumID);
     Q_INVOKABLE void addAlbum(QString name, int authorID,int year, QString genreName);
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
     Q_PROPERTY(QList<QVariant> songs READ songs WRITE setSongs NOTIFY songsChanged)
     Q_PROPERTY(QList<QVariant> authorAlbums READ authorAlbums WRITE setAuthorAlbums NOTIFY authorAlbumsChanged)
     Q_PROPERTY(QList<QVariant> albums READ albums WRITE setAlbums NOTIFY albumsChanged)
-
     Q_INVOKABLE bool imageExists(int albumID);
     Q_INVOKABLE QString getImagePath(int albumID);
     Q_INVOKABLE void setNewImage(int albumID,QString path);
@@ -85,6 +85,12 @@ void applicationPathChanged(QString applicationPath);
 void albumsChanged(QList<QVariant> albums);
 
 public slots:
+
+void filterAlbums(QString authorName,QString genre,int year){
+    auto albums = getAlbums(authorName,genre,year);
+    setAlbums(albums);
+}
+
 void refreshAlbums(){
     auto albums = getAlbums();
     setAlbums(albums);
