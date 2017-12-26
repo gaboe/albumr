@@ -109,3 +109,14 @@ void AlbumService::addSong(QString name, int albumID)
     query.bindValue(":albumID", albumID);
     query.exec();
 }
+
+void AlbumService::addAlbum(QString name, int authorID,int year, int genreID)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO Albums(Name,AuthorID,Year,GenreID) VALUES (:name,:authorID,:year,:genreID)");
+    query.bindValue(":name",name);
+    query.bindValue(":authorID", authorID);
+    query.bindValue(":year",year);
+    query.bindValue(":genreID",genreID);
+    query.exec();
+}
