@@ -1,7 +1,7 @@
 #include "fileutils.h"
 #include <QFileInfo>
 #include <QString>
-
+#include <QDebug>
 FileUtils::FileUtils(QObject *parent) : QObject(parent)
 {
 
@@ -23,5 +23,19 @@ QString FileUtils::getImagePath(int albumID)
     }
     return this->imagePath().append("/").append("empty").append(".jpg");
 
+}
+
+void FileUtils::setNewImage(int albumID, QString path)
+{
+
+    auto newPath = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
+    if (QFile::exists(newPath))
+    {
+        QFile::remove(newPath);
+    }
+
+    qDebug() << newPath;
+    qDebug() << path;
+    QFile::copy(path.replace(0,7,""),newPath );
 }
 

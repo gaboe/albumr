@@ -14,6 +14,7 @@ public:
     explicit FileUtils(QObject *parent = nullptr);
     Q_INVOKABLE bool imageExists(int albumID);
     Q_INVOKABLE QString getImagePath(int albumID);
+    Q_INVOKABLE void setNewImage(int albumID,QString path);
     Q_PROPERTY(QString imagePath READ imagePath WRITE setImagePath NOTIFY imagePathChanged)
     Q_PROPERTY(QString applicationPath READ applicationPath WRITE setApplicationPath NOTIFY applicationPathChanged)
 

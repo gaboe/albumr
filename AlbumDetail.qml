@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.3
+import QtQuick.Dialogs 1.0
 
 Item {
     y: 30
@@ -32,6 +33,19 @@ Item {
         sourceSize.width: (layout.width - leftMenu.width) * 0.3
         fillMode: Image.PreserveAspectFit
         source: fileUtils.getImagePath(albumService.albumDetail.albumID)
+
+        Button {
+            height: 40
+            width: 60
+            anchors.margins: 15
+            anchors.left: addSongPlaceholder.right
+            text: "Add"
+            highlighted: true
+            Material.accent: Material.BlueGrey
+            onClicked: {
+                fileDialog.visible = true
+            }
+        }
     }
 
     Text {
@@ -111,6 +125,22 @@ Item {
             onClicked: {
                 addSong()
             }
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.home
+        visible: false
+        onAccepted: {
+            console.log("You chose: " + fileDialog.fileUrl)
+            fileUtils.setNewImage(albumService.albumDetail.albumID,
+                                  fileDialog.fileUrls)
+            albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
+        }
+        onRejected: {
+            console.log("Canceled")
         }
     }
 
