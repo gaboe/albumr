@@ -3,11 +3,15 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 Item {
+    y: 30
+    width: (layout.width - leftMenu.width)
     id: albums
     property variant colorArray: ["#00bde3", "#67c111", "#ea7025"]
     state: "focused"
 
     Text {
+        anchors.top: albums.bottom
+        anchors.centerIn: albums
         font.pixelSize: 24
         text: "Albums"
         id: albumsHeader
