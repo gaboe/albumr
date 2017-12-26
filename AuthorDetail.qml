@@ -16,7 +16,6 @@ Item {
     TextEdit {
         anchors.top: authorDetail.anchors.top
         anchors.centerIn: authorDetail
-
         anchors.margins: 40
         font.pixelSize: 24
         text: authorService.authorDetail.name
@@ -24,8 +23,9 @@ Item {
         anchors.bottomMargin: 20
 
         onTextChanged: {
-            authorService.updateAuthorName(authorDetailName.text,
-                                           authorService.authorDetail.authorID)
+            authorService.updateAuthorName(
+                         authorDetailName.text,
+                         authorService.authorDetail.authorID)
         }
 
         Image {

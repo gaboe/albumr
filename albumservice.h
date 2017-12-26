@@ -30,6 +30,7 @@ public:
     QList<QVariant> getAlbums(QString authorName,QString genre,QString year);
     Q_INVOKABLE void addSong(QString name,int albumID);
     Q_INVOKABLE void addAlbum(QString name, int authorID,int year, QString genreName);
+    Q_INVOKABLE void updateAlbumName(QString name, int albumID);
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
     Q_PROPERTY(QList<QVariant> songs READ songs WRITE setSongs NOTIFY songsChanged)
     Q_PROPERTY(QList<QVariant> authorAlbums READ authorAlbums WRITE setAuthorAlbums NOTIFY authorAlbumsChanged)

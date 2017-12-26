@@ -75,5 +75,5 @@ void AuthorService::updateAuthorName(QString name, int authorID)
     query.prepare("UPDATE Authors SET name = :name WHERE Authors.AuthorID = :authorID");
     query.bindValue(":name",name);
     query.bindValue(":authorID",authorID);
-    qDebug() << query.exec();
+    query.exec();
 }

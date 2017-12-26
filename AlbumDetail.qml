@@ -16,12 +16,16 @@ Item {
             textEdit.text = ""
         }
     }
-    Text {
+    TextEdit {
         anchors.top: albumDetail.anchors.top
         anchors.centerIn: albumDetail
         font.pointSize: 28
         id: albumDetailName
         text: albumService.albumDetail.name
+        onTextChanged: {
+            albumService.updateAlbumName(albumDetailName.text,
+                                         albumService.albumDetail.albumID)
+        }
     }
     Image {
         anchors.top: albumDetailName.bottom

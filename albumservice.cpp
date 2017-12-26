@@ -188,6 +188,16 @@ void AlbumService::addAlbum(QString name, int authorID,int year, QString genreNa
 
 }
 
+void AlbumService::updateAlbumName(QString name, int albumID)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE Albums SET Name = :name WHERE Albums.AlbumID = :albumID");
+    query.bindValue(":name",name);
+    query.bindValue(":albumID",albumID);
+    qDebug() << query.exec();
+
+}
+
 bool AlbumService::imageExists(int albumID)
 {
     auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
