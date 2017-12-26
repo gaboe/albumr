@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.3
 
 Item {
     y: 30
@@ -15,6 +16,77 @@ Item {
         font.pixelSize: 24
         text: "Albums"
         id: albumsHeader
+    }
+
+    Item {
+        id: filtersWrapper
+        anchors.top: albumsHeader.bottom
+        width: albums.width
+        TextEdit {
+            anchors.top: filtersWrapper.top
+            anchors.margins: 20
+            id: filterByNameTextEdit
+            width: 200
+            height: 50
+            property string placeholderText: "Author name..."
+            Keys.onEnterPressed: {
+                addSong()
+            }
+            Text {
+                id: filterByNameTextEditPlaceholder
+                text: filterByNameTextEdit.placeholderText
+                color: "#aaa"
+                visible: !filterByNameTextEdit.text
+            }
+        }
+        TextEdit {
+            anchors.top: filtersWrapper.top
+            anchors.left: filterByNameTextEdit.right
+            anchors.margins: 20
+            id: filterByYearTextEdit
+            width: 200
+            height: 50
+            property string placeholderText: "Year..."
+            Keys.onEnterPressed: {
+                addSong()
+            }
+            Text {
+                id: filterByYearTextEditPlaceholder
+                text: filterByYearTextEdit.placeholderText
+                color: "#aaa"
+                visible: !filterByYearTextEdit.text
+            }
+        }
+        TextEdit {
+            anchors.top: filtersWrapper.top
+            anchors.margins: 20
+            anchors.left: filterByYearTextEdit.right
+            id: filterByGenreTextEdit
+            width: 200
+            height: 50
+            property string placeholderText: "Genre..."
+            Keys.onEnterPressed: {
+                addSong()
+            }
+            Text {
+                id: filterByGenreTextEditPlaceholder
+                text: filterByGenreTextEdit.placeholderText
+                color: "#aaa"
+                visible: !filterByGenreTextEdit.text
+            }
+        }
+        Button {
+            height: 40
+            width: 60
+            anchors.margins: 15
+            anchors.left: filterByGenreTextEdit.right
+            text: "Filter"
+            highlighted: true
+            Material.accent: Material.BlueGrey
+            onClicked: {
+                addSong()
+            }
+        }
     }
 
     Grid {
