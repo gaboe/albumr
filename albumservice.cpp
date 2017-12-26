@@ -32,7 +32,6 @@ QList<QVariant> AlbumService::getAlbums()
         album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
         album->setImagePath(getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
-        qDebug() << album->imagePath();
         list->insert(list->size(),v);
     }
     return *list;
@@ -176,17 +175,6 @@ void AlbumService::addSong(QString name, int albumID)
     query.bindValue(":name",name);
     query.bindValue(":albumID", albumID);
     query.exec();
-    QString str = query.lastQuery();
-    QMapIterator<QString, QVariant> it(query.boundValues());
-
-    it.toBack();
-
-    while (it.hasPrevious())
-    {
-        it.previous();
-        str.replace(it.key(),it.value().toString());
-    }
-    qDebug() << str;
 }
 
 void AlbumService::addAlbum(QString name, int authorID,int year, QString genreName)
@@ -198,23 +186,7 @@ void AlbumService::addAlbum(QString name, int authorID,int year, QString genreNa
     query.bindValue(":year",year);
     query.bindValue(":genreName",genreName);
 
-    qDebug() << query.exec();
-    qDebug() << genreName;
-
-    qDebug() << query.lastError();
-    qDebug() << query.lastQuery();
-
-    QString str = query.lastQuery();
-    QMapIterator<QString, QVariant> it(query.boundValues());
-
-    it.toBack();
-
-    while (it.hasPrevious())
-    {
-        it.previous();
-        str.replace(it.key(),it.value().toString());
-    }
-    qDebug() << str;
+    query.exec();
 }
 
 bool AlbumService::imageExists(int albumID)

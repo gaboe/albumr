@@ -20,7 +20,6 @@ QList<QString> AuthorService::getGenres()
     while (query.next()) {
         QSqlRecord record = query.record();
         list->insert(list->size(),record.value("Name").toString());
-        qDebug() << record.value("Name").toString();
     }
     return *list;
 }
@@ -51,7 +50,6 @@ QVariant AuthorService::getAuthor(int authorID)
     QString queryString = "SELECT AuthorID, FirstName, LastName FROM Authors";
     queryString.append(" WHERE AuthorID = ");
     queryString.append(QString::number(authorID));
-    qDebug() << queryString;
     query.exec(queryString);
     while (query.next()) {
         QSqlRecord record = query.record();
@@ -71,5 +69,5 @@ void AuthorService::addAuthor(QString firstName,QString lastName)
     query.prepare("INSERT INTO Authors(FirstName,LastName) values (:firstName,:lastName)");
     query.bindValue(":firstName",firstName);
     query.bindValue(":lastName", lastName);
-    qDebug() << query.exec();
+    query.exec();
 }

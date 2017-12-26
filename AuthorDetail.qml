@@ -32,7 +32,6 @@ Item {
         id: authorDetailName
         anchors.bottomMargin: 20
     }
-    anchors.top: authorDetailName.bottom
     Item {
         id: addAlbumWrapper
         width: authorDetail.width
@@ -81,7 +80,6 @@ Item {
         }
 
         ComboBox {
-
             anchors.top: authorDetailName.bottom
             anchors.verticalCenter: addAlbumWrapper.verticalCenter
             anchors.left: yearTextEdit.right
@@ -128,19 +126,22 @@ Item {
     }
 
     Rectangle {
-
         id: authorAlbumsWrapper
         anchors.top: addAlbumWrapper.bottom
-        x: authorDetail.width * 0.15
-        width: ((layout.width - leftMenu.width) * .3)
+        x: authorDetail.width * 0.10
+        width: (layout.width - leftMenu.width)
         height: layout.height
         ListView {
+            anchors.top: addAlbumWrapper.bottom
             id: authorAlbums
+            height: layout.height
+            width: (layout.width - leftMenu.width)
             anchors.fill: parent
             model: albumService.authorAlbums
+            clip: true
             delegate: Rectangle {
                 anchors.margins: 15
-                width: (layout.width - leftMenu.width) * 0.3
+                width: (layout.width - leftMenu.width)
                 height: (layout.width - leftMenu.width) * 0.3
                 Image {
                     id: albumCover
@@ -153,6 +154,7 @@ Item {
                 }
 
                 Text {
+                    font.pointSize: 15
                     anchors.leftMargin: 15
                     id: albumName
                     anchors.verticalCenter: parent.verticalCenter
@@ -168,6 +170,7 @@ Item {
                 }
 
                 Text {
+                    font.pointSize: 12
                     anchors.leftMargin: 15
                     id: albumYear
                     anchors.top: albumName.bottom
@@ -182,6 +185,7 @@ Item {
                     }
                 }
                 Text {
+                    font.pointSize: 14
                     anchors.leftMargin: 15
                     id: albumGenre
                     anchors.top: albumYear.bottom
