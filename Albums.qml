@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.3
 
 Item {
     y: 30
+    x: 10
     width: (layout.width - leftMenu.width)
     id: albums
     property variant colorArray: ["#00bde3", "#67c111", "#ea7025"]
