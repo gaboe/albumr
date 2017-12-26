@@ -6,7 +6,6 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include "album.h"
-#include "fileutils.h"
 class AlbumService : public QObject
 {
     Q_OBJECT
