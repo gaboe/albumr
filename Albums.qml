@@ -81,18 +81,6 @@ Item {
                 visible: !filterByGenreTextEdit.text
             }
         }
-        Button {
-            height: 40
-            width: 60
-            anchors.margins: 15
-            anchors.left: filterByGenreTextEdit.right
-            text: "Filter"
-            highlighted: true
-            Material.accent: Material.BlueGrey
-            onClicked: {
-                addSong()
-            }
-        }
     }
 
     Grid {

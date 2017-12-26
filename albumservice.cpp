@@ -125,7 +125,6 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QStrin
                 .append(year)
                 .append("%'");
     }
-    qDebug() << queryString;
 
     query.exec(queryString);
     auto list = new QList<QVariant>();

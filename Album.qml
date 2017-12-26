@@ -18,7 +18,7 @@ Component {
             sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             fillMode: Image.PreserveAspectFit
-            source: albumsRepeater.model[index].imagePath // fileUtils.getImagePath(albumsRepeater.model[index].albumID)
+            source: albumsRepeater.model[index].imagePath
             cache: false
             Text {
                 id: albumName

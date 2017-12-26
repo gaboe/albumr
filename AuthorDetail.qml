@@ -36,19 +36,21 @@ Item {
     Item {
         id: addAlbumWrapper
         width: authorDetail.width
-        height: 60
+        height: 80
+        x: authorDetail.width * 0.15
         TextEdit {
+            anchors.verticalCenter: addAlbumWrapper.verticalCenter
             anchors.top: authorDetailName.bottom
             anchors.margins: 20
             id: textEdit
-            width: 100
-            height: 50
+            width: 200
             font.pointSize: 15
             property string placeholderText: "Add new album..."
             Keys.onEnterPressed: {
                 addAlbum()
             }
             Text {
+                font.pointSize: 15
                 id: addAlbumPlaceholder
                 text: textEdit.placeholderText
                 color: "#aaa"
@@ -57,12 +59,12 @@ Item {
         }
 
         TextEdit {
+            anchors.verticalCenter: addAlbumWrapper.verticalCenter
             anchors.top: authorDetailName.bottom
             anchors.left: textEdit.right
             anchors.margins: 20
             id: yearTextEdit
             width: 100
-            height: 50
             font.pointSize: 15
             property string placeholderText: "year"
 
@@ -70,6 +72,7 @@ Item {
                 addAlbum()
             }
             Text {
+                font.pointSize: 15
                 id: yearTextEditPlaceholed
                 text: yearTextEdit.placeholderText
                 color: "#aaa"
@@ -78,8 +81,9 @@ Item {
         }
 
         ComboBox {
+
             anchors.top: authorDetailName.bottom
-            anchors.verticalCenter: textEdit.verticalCenter
+            anchors.verticalCenter: addAlbumWrapper.verticalCenter
             anchors.left: yearTextEdit.right
             id: combobox
             anchors.margins: 20
@@ -112,7 +116,7 @@ Item {
             height: 40
             width: 60
             anchors.margins: 15
-            anchors.verticalCenter: combobox.verticalCenter
+            anchors.verticalCenter: addAlbumWrapper.verticalCenter
             anchors.left: combobox.right
             text: "Add"
             highlighted: true
