@@ -8,10 +8,9 @@ Item {
     id: authors
     width: (layout.width - leftMenu.width)
     function addAuthor() {
-        if (textEdit.text != "" && lastName.text != "") {
-            authorService.addAuthor(textEdit.text, lastName.text)
+        if (textEdit.text != "") {
+            authorService.addAuthor(textEdit.text)
             textEdit.text = ""
-            lastName.text = ""
             authorService.setNewAuthors()
             layout.state = "authors-view"
         }
@@ -40,7 +39,7 @@ Item {
             height: 10
             font.pointSize: 15
 
-            property string placeholderText: "Firstname..."
+            property string placeholderText: "Name..."
             Keys.onEnterPressed: {
                 addAuthor()
             }
@@ -51,33 +50,16 @@ Item {
                 visible: !textEdit.text
             }
         }
-        TextEdit {
-            y: 40
-            x: 160
-            id: lastName
-            width: 150
-            height: 100
+
+        Button {
+            x: 280
             font.pointSize: 15
-            property string placeholderText: "Lastname..."
-            Keys.onEnterPressed: {
+            anchors.centerIn: textEdit.verticalCenter
+            text: "Add"
+            highlighted: true
+            Material.accent: Material.BlueGrey
+            onClicked: {
                 addAuthor()
-            }
-            Text {
-                text: lastName.placeholderText
-                font.pointSize: 15
-                color: "#aaa"
-                visible: !lastName.text
-            }
-            Button {
-                x: 280
-                font.pointSize: 15
-                anchors.centerIn: textEdit.verticalCenter
-                text: "Add"
-                highlighted: true
-                Material.accent: Material.BlueGrey
-                onClicked: {
-                    addAuthor()
-                }
             }
         }
     }
@@ -95,8 +77,7 @@ Item {
                 font.pointSize: 12
                 id: authorItem
                 property int authorID: list.model[index].authorID
-                text: list.model[index].authorID + " " + list.model[index].firstName
-                      + " " + list.model[index].lastName
+                text: list.model[index].authorID + " " + list.model[index].name
                 MouseArea {
                     cursorShape: Qt.PointingHandCursor
                     anchors.fill: parent

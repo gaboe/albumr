@@ -18,7 +18,7 @@ public:
     QList<QString> getGenres();
     Q_INVOKABLE QList<QVariant> getNewAuthors();
     Q_INVOKABLE QVariant getAuthor(int authorID);
-    Q_INVOKABLE void addAuthor(QString firstName,QString lastName);
+    Q_INVOKABLE void addAuthor(QString name);
     Q_PROPERTY(QVariant authorDetail READ authorDetail WRITE setAuthorDetail NOTIFY authorDetailChanged)
     Q_PROPERTY(QList<QVariant> authors READ authors WRITE setAuthors NOTIFY authorsChanged)
     Q_PROPERTY(QList<QString> genres READ genres WRITE setGenres NOTIFY genresChanged)

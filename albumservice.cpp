@@ -16,7 +16,7 @@ AlbumService::AlbumService(QObject *parent) : QObject(parent)
 QList<QVariant> AlbumService::getAlbums()
 {
     QSqlQuery query;
-    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
 
     query.exec(queryString);
     auto list = new QList<QVariant>();
@@ -29,7 +29,7 @@ QList<QVariant> AlbumService::getAlbums()
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
         album->setAuthorID(record.value("AuthorID").toInt());
-        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setAuthorName(record.value("AuthorName").toString());
         album->setImagePath(getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
         list->insert(list->size(),v);
@@ -40,7 +40,7 @@ QList<QVariant> AlbumService::getAlbums()
 QVariant AlbumService::getAlbum(int albumID)
 {
     QSqlQuery query;
-    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
     queryString.append(" WHERE Albums.AlbumID = ");
     queryString.append(QString::number(albumID));
     query.exec(queryString);
@@ -53,7 +53,7 @@ QVariant AlbumService::getAlbum(int albumID)
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
         album->setAuthorID(record.value("AuthorID").toInt());
-        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setAuthorName(record.value("AuthorName").toString());
         album->setImagePath(this->getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
         return v;
@@ -85,7 +85,7 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QStrin
 {
 
     QSqlQuery query;
-    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
 
     auto filterByAuthorName = !authorName.isNull() && !authorName.isEmpty();
     auto filterByGenre= !genre.isNull() && !genre.isEmpty();
@@ -98,9 +98,7 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QStrin
     if(filterByAuthorName)
     {
         queryString
-                .append("(Authors.FirstName LIKE '%")
-                .append(authorName)
-                .append("%' OR Authors.LastName LIKE '%")
+                .append("(Authors.Name LIKE '%")
                 .append(authorName)
                 .append("%')");
     }
@@ -135,7 +133,7 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QStrin
         album->setName(record.value("Name").toString());
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
-        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setAuthorName(record.value("AuthorName").toString());
         album->setImagePath(getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
         list->insert(list->size(),v);
@@ -147,7 +145,7 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
 {
 
     QSqlQuery query;
-    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.FirstName, Authors.LastName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
+    QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName, Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
     queryString.append(" WHERE Albums.AuthorID = ");
     queryString.append(QString::number(authorID));
     query.exec(queryString);
@@ -160,7 +158,7 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
         album->setName(record.value("Name").toString());
         album->setYear(record.value("Year").toInt());
         album->setGenreName(record.value("GenreName").toString());
-        album->setAuthorName(record.value("FirstName").toString() + " " + record.value("LastName").toString());
+        album->setAuthorName(record.value("AuthorName").toString());
         album->setImagePath(getImagePath(album->albumID()));
         QVariant v = QVariant::fromValue(album);
         list->insert(list->size(),v);
@@ -187,6 +185,7 @@ void AlbumService::addAlbum(QString name, int authorID,int year, QString genreNa
     query.bindValue(":genreName",genreName);
 
     query.exec();
+
 }
 
 bool AlbumService::imageExists(int albumID)

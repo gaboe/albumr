@@ -43,14 +43,14 @@ void DbManager::seed()
     query.exec("insert into Genres(Name) values ('Pop');");
     query.exec("insert into Genres(Name) values ('Metal');");
     query.exec("insert into Genres(Name) values ('RnB');");
-    query.exec("insert into Authors(FirstName,LastName) values ('Kendrick','Lammar');");
-    query.exec("insert into Authors(FirstName,LastName) values ('Kanye','West');");
-    query.exec("insert into Authors(FirstName,LastName) values ('Frank','Ocean');");
+    query.exec("insert into Authors(Name) values ('Kendrick Lammar');");
+    query.exec("insert into Authors(Name) values ('Kanye West');");
+    query.exec("insert into Authors(Name) values ('Frank Ocean');");
 
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Yeezus',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kanye' and Authors.LastName= 'West'),2013,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Blonde',(select Authors.AuthorID from Authors where Authors.FirstName = 'Frank' and Authors.LastName= 'Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'RnB'));");
-    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('DAMN.',(select Authors.AuthorID from Authors where Authors.FirstName = 'Kendrick' and Authors.LastName= 'Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('To Pimp a Butterfly',(select Authors.AuthorID from Authors where Authors.Name = 'Kendrick Lammar'),2015,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Yeezus',(select Authors.AuthorID from Authors where Authors.Name = 'Kanye West'),2013,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('Blonde',(select Authors.AuthorID from Authors where Authors.Name = 'Frank Ocean'),2016,(select Genres.GenreID from Genres where Genres.Name = 'RnB'));");
+    query.exec("insert into Albums(Name,AuthorID,Year,GenreID) VALUES ('DAMN.',(select Authors.AuthorID from Authors where Authors.Name = 'Kendrick Lammar'),2017,(select Genres.GenreID from Genres where Genres.Name = 'Rap'));");
 
     query.exec("insert into Songs(Name,AlbumID) values('Wesleys Theory',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
     query.exec("insert into Songs(Name,AlbumID) values('For Free?',(select Albums.AlbumID from Albums where Albums.Name = 'To Pimp a Butterfly'));");
@@ -90,8 +90,7 @@ QString DbManager::getInitScriptForAuthors()
 {
     return "create table Authors( " \
            "[AuthorID]  INTEGER PRIMARY KEY AUTOINCREMENT," \
-           "[FirstName] nvarchar(150) not null," \
-           "[LastName] nvarchar(150) not null" \
+           "[Name] nvarchar(300) not null" \
            ");" \
             ;
 }
@@ -99,8 +98,8 @@ QString DbManager::getInitScriptForAuthors()
 QString DbManager::getInitScriptForGenres()
 {
     return   "create table Genres(" \
-             "    [GenreID] INTEGER PRIMARY KEY AUTOINCREMENT," \
-             "   [Name] nvarchar(300) not null" \
+             "[GenreID] INTEGER PRIMARY KEY AUTOINCREMENT," \
+             "[Name] nvarchar(300) not null" \
              ");" \
             ;
 }
@@ -108,15 +107,15 @@ QString DbManager::getInitScriptForGenres()
 QString DbManager::getInitScriptForAlbums()
 {
     return
-            " create table Albums(" \
-            "    [AlbumID] INTEGER PRIMARY KEY AUTOINCREMENT," \
-            "   [AuthorID] INTEGER not null," \
-            "  [Name] nvarchar(300) not null," \
-            " [Year] INTEGER not null," \
-            " [GenreID] INTEGER," \
+            "create table Albums(" \
+            "[AlbumID] INTEGER PRIMARY KEY AUTOINCREMENT," \
+            "[AuthorID] INTEGER not null," \
+            "[Name] nvarchar(300) not null," \
+            "[Year] INTEGER not null," \
+            "[GenreID] INTEGER," \
 
-            "     foreign key(AuthorID) references Authors(AuthorID)," \
-            "    foreign key(GenreID) references Genres(GenreID)" \
+            "foreign key(AuthorID) references Authors(AuthorID)," \
+            "foreign key(GenreID) references Genres(GenreID)" \
             ");" \
 
             ;
@@ -124,12 +123,12 @@ QString DbManager::getInitScriptForAlbums()
 
 QString DbManager::getInitScriptForSongs()
 {
-    return  " create table Songs(" \
-            "    [SongID] INTEGER PRIMARY KEY AUTOINCREMENT," \
-            "   [Name] NVARCHAR(300) NOT NULL," \
-            "  [AlbumID] INTEGER NOT NULL," \
+    return  "create table Songs(" \
+            "[SongID] INTEGER PRIMARY KEY AUTOINCREMENT," \
+            "[Name] NVARCHAR(300) NOT NULL," \
+            "[AlbumID] INTEGER NOT NULL," \
 
-            " foreign key(AlbumID) references Albums(AlbumID)" \
+            "foreign key(AlbumID) references Albums(AlbumID)" \
             ");" \
             ;
 }

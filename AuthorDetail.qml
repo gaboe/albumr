@@ -7,16 +7,7 @@ Item {
     id: authorDetail
     width: (layout.width - leftMenu.width)
     anchors.topMargin: 20
-    function addAlbum() {
-        if (textEdit.text != "" && !/\D/.test(yearTextEdit.text)) {
-            albumService.addAlbum(textEdit.text,
-                                  authorService.authorDetail.authorID,
-                                  yearTextEdit.text, combobox.currentGenre)
-            albumService.setNewAuthorAlbums(authorService.authorDetail.authorID)
-            textEdit.text = ""
-            yearTextEdit.text = ""
-        }
-    }
+
     function redirectToAlbumDetail(index) {
         albumService.setNewAlbumDetail(albumService.authorAlbums[index].albumID)
         albumService.setNewSongs(albumService.authorAlbums[index].albumID)
@@ -28,7 +19,7 @@ Item {
 
         anchors.margins: 40
         font.pixelSize: 24
-        text: authorService.authorDetail.firstName + " " + authorService.authorDetail.lastName
+        text: authorService.authorDetail.name
         id: authorDetailName
         anchors.bottomMargin: 20
     }

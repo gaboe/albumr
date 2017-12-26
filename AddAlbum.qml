@@ -3,6 +3,16 @@ import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.3
 
 Item {
+    function addAlbum() {
+        if (textEdit.text != "" && !/\D/.test(yearTextEdit.text)) {
+            albumService.addAlbum(textEdit.text,
+                                  authorService.authorDetail.authorID,
+                                  yearTextEdit.text, combobox.currentGenre)
+            albumService.setNewAuthorAlbums(authorService.authorDetail.authorID)
+            textEdit.text = ""
+            yearTextEdit.text = ""
+        }
+    }
     id: addAlbumWrapper
     width: authorDetail.width
     height: 80

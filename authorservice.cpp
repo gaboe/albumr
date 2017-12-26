@@ -27,7 +27,7 @@ QList<QString> AuthorService::getGenres()
 QList<QVariant> AuthorService::getNewAuthors()
 {
     QSqlQuery query;
-    QString queryString = "SELECT AuthorID, FirstName, LastName FROM Authors";
+    QString queryString = "SELECT AuthorID, Name FROM Authors";
 
     query.exec(queryString);
     auto list = new QList<QVariant>();
@@ -35,8 +35,7 @@ QList<QVariant> AuthorService::getNewAuthors()
         QSqlRecord record = query.record();
 
         auto author = new Author();
-        author->setFirstName(record.value("FirstName").toString());
-        author->setLastName(record.value("LastName").toString());
+        author->setName(record.value("Name").toString());
         author->setAuthorID(record.value("AuthorID").toInt());
         QVariant v = QVariant::fromValue(author);
         list->insert(list->size(),v);
@@ -47,7 +46,7 @@ QList<QVariant> AuthorService::getNewAuthors()
 QVariant AuthorService::getAuthor(int authorID)
 {
     QSqlQuery query;
-    QString queryString = "SELECT AuthorID, FirstName, LastName FROM Authors";
+    QString queryString = "SELECT AuthorID, Name FROM Authors";
     queryString.append(" WHERE AuthorID = ");
     queryString.append(QString::number(authorID));
     query.exec(queryString);
@@ -55,19 +54,17 @@ QVariant AuthorService::getAuthor(int authorID)
         QSqlRecord record = query.record();
 
         auto author = new Author();
-        author->setFirstName(record.value("FirstName").toString());
-        author->setLastName(record.value("LastName").toString());
+        author->setName(record.value("Name").toString());
         author->setAuthorID(record.value("AuthorID").toInt());
         QVariant v = QVariant::fromValue(author);
         return v;
     }
 }
 
-void AuthorService::addAuthor(QString firstName,QString lastName)
+void AuthorService::addAuthor(QString name)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO Authors(FirstName,LastName) values (:firstName,:lastName)");
-    query.bindValue(":firstName",firstName);
-    query.bindValue(":lastName", lastName);
+    query.prepare("INSERT INTO Authors(Name) values (:name)");
+    query.bindValue(":name",name);
     query.exec();
 }
