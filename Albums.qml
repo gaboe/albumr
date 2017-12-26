@@ -90,12 +90,11 @@ Item {
     }
 
     Rectangle {
-
-        id: authorAlbumsWrapper
+        id: albumsWrapper
         anchors.top: filtersWrapper.bottom
         x: authorDetail.width * 0.10
         width: (layout.width - leftMenu.width)
-        height: layout.height
+        height: layout.height - 100
         ListView {
             anchors.top: filtersWrapper.bottom
             id: authorAlbums

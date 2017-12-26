@@ -19,7 +19,7 @@ Item {
     Text {
         anchors.top: albumDetail.anchors.top
         anchors.centerIn: albumDetail
-        font.pointSize: 24
+        font.pointSize: 28
         id: albumDetailName
         text: albumService.albumDetail.name
     }
@@ -34,24 +34,26 @@ Item {
         fillMode: Image.PreserveAspectFit
         source: albumService.albumDetail.imagePath
         cache: false
-
-        Button {
-            height: 40
-            width: 60
-            anchors.margins: 15
-            anchors.left: addSongPlaceholder.right
-            text: "Add"
-            highlighted: true
-            Material.accent: Material.BlueGrey
-            onClicked: {
-                fileDialog.visible = true
-            }
+    }
+    Button {
+        id: changeImageButton
+        anchors.top: albumCover.bottom
+        x: (albumDetail.width / 2) - 100
+        height: 40
+        width: 200
+        anchors.margins: 15
+        text: "Change album cover"
+        highlighted: true
+        Material.accent: Material.BlueGrey
+        onClicked: {
+            fileDialog.visible = true
         }
     }
-
     Text {
-        x: albumDetail.width * 0.10
-        anchors.top: albumCover.bottom
+        font.pointSize: 20
+        width: albumDetail.width
+        horizontalAlignment: Text.AlignHCenter
+        anchors.top: changeImageButton.bottom
         id: albumDetailAuthorName
         text: "Author: " + albumService.albumDetail.authorName
         property int authorID: albumService.albumDetail.authorID
@@ -67,68 +69,72 @@ Item {
     }
 
     Text {
-        x: albumDetail.width * 0.10
+        width: albumDetail.width
+        horizontalAlignment: Text.AlignHCenter
+        font.pointSize: 15
         anchors.top: albumDetailAuthorName.bottom
         id: albumDetailGenreName
         text: "Genre: " + albumService.albumDetail.genreName
     }
 
-    Text {
-        x: albumDetail.width * 0.10
-        anchors.top: albumDetailGenreName.bottom
-        id: songsHeader
-        text: "Songs: "
-    }
-
     Rectangle {
         id: songsListWrapper
-        anchors.top: songsHeader.bottom
-        x: albumDetail.width * 0.10
+        anchors.top: albumDetailGenreName.bottom
+        x: (albumDetail.width / 2) - (albumDetail.width * 0.3)
         width: albumDetail.width * .15
-        height: layout.height
+        height: 100
         anchors.margins: 20
         ListView {
             id: songs
             anchors.fill: parent
             model: albumService.songs
             delegate: Text {
+                font.pointSize: 12
                 text: (index + 1) + ". " + albumService.songs[index].name
             }
             focus: true
         }
     }
 
-    TextEdit {
+    Item {
+        id: addSongWrapper
+        anchors.top: songsListWrapper.top
         anchors.left: songsListWrapper.right
-        anchors.top: songsHeader.bottom
-        anchors.margins: 20
-        id: textEdit
-        width: 200
-        height: 50
-        property string placeholderText: "Add new song..."
-        Keys.onEnterPressed: {
-            addSong()
-        }
-        Text {
-            id: addSongPlaceholder
-            text: textEdit.placeholderText
-            color: "#aaa"
-            visible: !textEdit.text
-        }
-        Button {
-            height: 40
-            width: 60
-            anchors.margins: 15
-            anchors.left: addSongPlaceholder.right
-            text: "Add"
-            highlighted: true
-            Material.accent: Material.BlueGrey
-            onClicked: {
+        height: 80
+        TextEdit {
+            x: albumDetail.width * 0.10
+            anchors.top: songsListWrapper.bottom
+            anchors.verticalCenter: textEdit.verticalCenter
+            anchors.margins: 20
+            id: textEdit
+            width: 200
+            font.pointSize: 15
+            property string placeholderText: "Add new song..."
+            Keys.onEnterPressed: {
                 addSong()
+            }
+            Text {
+                id: addSongPlaceholder
+                text: textEdit.placeholderText
+                color: "#aaa"
+                font.pointSize: 15
+                visible: !textEdit.text
+            }
+            Button {
+                height: 40
+                width: 60
+                anchors.margins: 15
+                anchors.left: addSongPlaceholder.right
+                anchors.verticalCenter: textEdit.verticalCenter
+                text: "Add"
+                highlighted: true
+                Material.accent: Material.BlueGrey
+                onClicked: {
+                    addSong()
+                }
             }
         }
     }
-
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
@@ -140,9 +146,6 @@ Item {
             albumService.setNewImage(albumService.albumDetail.albumID,
                                      fileDialog.fileUrls)
             albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
-        }
-        onRejected: {
-            console.log("Canceled")
         }
     }
 

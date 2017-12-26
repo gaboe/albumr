@@ -5,8 +5,7 @@ Rectangle {
     anchors.top: addAlbumWrapper.bottom
     x: authorDetail.width * 0.10
     width: (layout.width - leftMenu.width)
-    height: layout.height
-
+    height: layout.height - 100
     ListView {
         anchors.top: addAlbumWrapper.bottom
         id: authorAlbums
