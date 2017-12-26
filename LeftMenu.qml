@@ -23,6 +23,8 @@ ListView {
             onClicked: {
                 if (stateName == "authors-view") {
                     authorService.setNewAuthors()
+                } else if (stateName == "albums-view") {
+                    albumService.refreshAlbums()
                 }
                 layout.state = stateName
             }

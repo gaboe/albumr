@@ -32,7 +32,8 @@ Item {
         sourceSize.height: (layout.width - leftMenu.width) * 0.3
         sourceSize.width: (layout.width - leftMenu.width) * 0.3
         fillMode: Image.PreserveAspectFit
-        source: fileUtils.getImagePath(albumService.albumDetail.albumID)
+        source: albumService.albumDetail.imagePath
+        cache: false
 
         Button {
             height: 40
@@ -134,9 +135,10 @@ Item {
         folder: shortcuts.home
         visible: false
         onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-            fileUtils.setNewImage(albumService.albumDetail.albumID,
-                                  fileDialog.fileUrls)
+            albumService.setNewImage(albumService.albumDetail.albumID, "")
+            albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
+            albumService.setNewImage(albumService.albumDetail.albumID,
+                                     fileDialog.fileUrls)
             albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
         }
         onRejected: {

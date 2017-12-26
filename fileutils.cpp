@@ -34,8 +34,6 @@ void FileUtils::setNewImage(int albumID, QString path)
         QFile::remove(newPath);
     }
 
-    qDebug() << newPath;
-    qDebug() << path;
     QFile::copy(path.replace(0,7,""),newPath );
 }
 

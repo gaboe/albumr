@@ -20,6 +20,8 @@ class Album : public QObject
 
 QString m_authorName;
 
+QString m_imagePath;
+
 public:
     Album(QObject *parent = nullptr);
     Album(const Album &obj);
@@ -31,7 +33,7 @@ public:
     Q_PROPERTY(int genreID READ genreID WRITE setGenreID NOTIFY genreIDChanged)
     Q_PROPERTY(QString genreName READ genreName WRITE setGenreName NOTIFY genreNameChanged)
     Q_PROPERTY(QString authorName READ authorName WRITE setAuthorName NOTIFY authorNameChanged)
-
+    Q_PROPERTY(QString imagePath READ imagePath WRITE setImagePath NOTIFY imagePathChanged)
 QString name() const
 {
     return m_name;
@@ -67,6 +69,11 @@ QString authorName() const
     return m_authorName;
 }
 
+QString imagePath() const
+{
+    return m_imagePath;
+}
+
 signals:
 
 void nameChanged(QString name);
@@ -82,6 +89,8 @@ void genreIDChanged(int genreID);
 void genreNameChanged(QString genreName);
 
 void authorNameChanged(QString authorName);
+
+void imagePathChanged(QString imagePath);
 
 public slots:
 void setName(QString name)
@@ -140,6 +149,14 @@ void setAuthorName(QString authorName)
 
     m_authorName = authorName;
     emit authorNameChanged(m_authorName);
+}
+void setImagePath(QString imagePath)
+{
+    if (m_imagePath == imagePath)
+        return;
+
+    m_imagePath = imagePath;
+    emit imagePathChanged(m_imagePath);
 }
 };
 Q_DECLARE_METATYPE(Album)

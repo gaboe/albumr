@@ -143,7 +143,8 @@ Item {
                     sourceSize.height: (layout.width - leftMenu.width) * 0.25
                     sourceSize.width: (layout.width - leftMenu.width) * 0.25
                     fillMode: Image.PreserveAspectFit
-                    source: fileUtils.getImagePath(
+                    cache: false
+                    source: albumService.getImagePath(
                                 albumService.authorAlbums[index].albumID)
                 }
 

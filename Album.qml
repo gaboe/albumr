@@ -18,8 +18,8 @@ Component {
             sourceSize.height: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             sourceSize.width: (((layout.width - leftMenu.width) / 4) - 8) * 0.75
             fillMode: Image.PreserveAspectFit
-            source: fileUtils.getImagePath(albumsRepeater.model[index].albumID)
-
+            source: albumsRepeater.model[index].imagePath // fileUtils.getImagePath(albumsRepeater.model[index].albumID)
+            cache: false
             Text {
                 id: albumName
                 anchors.top: albumCover.bottom

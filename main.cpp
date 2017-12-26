@@ -8,8 +8,10 @@
 #include "albumservice.h"
 #include "fileutils.h"
 #include <QFileInfo>
+
 int main(int argc, char *argv[])
 {
+    #define CACHE_EXPIRE_TIME 0
 #if defined(Q_OS_WIN)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -23,11 +25,12 @@ int main(int argc, char *argv[])
 
     auto authorService = new AuthorService();
     auto albumService = new AlbumService();
-    auto fileUtils = new FileUtils();
 
     authorService->refreshGenres();
-    fileUtils->setApplicationPath(qApp->applicationDirPath()+ "/../albumr/images");
-    fileUtils->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr/images");
+    albumService->setApplicationPath(qApp->applicationDirPath()+ "/../albumr/images");
+    albumService->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr/images");
+
+    albumService->refreshAlbums();
     //QObject::connect(&albumService,&AlbumService::albumDetailChanged,&albumService,&AlbumService::setSongs);
 
     QQmlApplicationEngine engine;
@@ -35,7 +38,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
     engine.rootContext()->setContextProperty("authorService", authorService);
     engine.rootContext()->setContextProperty("albumService", albumService);
-    engine.rootContext()->setContextProperty("fileUtils", fileUtils);
 
     //qmlRegisterType<Author>();
 

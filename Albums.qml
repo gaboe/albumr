@@ -26,7 +26,7 @@ Item {
 
         Repeater {
             id: albumsRepeater
-            model: albumService.getAlbums()
+            model: albumService.albums
             delegate: Album {
             }
         }
