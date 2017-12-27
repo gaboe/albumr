@@ -47,7 +47,7 @@ Rectangle {
                         albumModel.deleteAlbum(
                                     albumModel.authorAlbums[index].albumID)
                         albumModel.setNewAuthorAlbums(
-                                    authorService.authorDetail.authorID)
+                                    authorModel.authorDetail.authorID)
                     }
                 }
             }

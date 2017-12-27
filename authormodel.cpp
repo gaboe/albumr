@@ -1,16 +1,16 @@
-#include "authorservice.h"
+#include "authormodel.h"
 #include "dbmanager.h"
 #include <QQmlListProperty>
 #include "author.h"
 #include <QObject>
-#include "authorservice.h"
+#include "authormodel.h"
 #include "genre.h"
 
-AuthorService::AuthorService(QObject *parent) : QObject(parent)
+AuthorModel::AuthorModel(QObject *parent) : QObject(parent)
 {
 }
 
-QList<QString> AuthorService::getGenres()
+QList<QString> AuthorModel::getGenres()
 {
     QSqlQuery query;
     QString queryString = "SELECT GenreID, Name FROM Genres";
@@ -24,7 +24,7 @@ QList<QString> AuthorService::getGenres()
     return *list;
 }
 
-QList<QVariant> AuthorService::getNewAuthors()
+QList<QVariant> AuthorModel::getNewAuthors()
 {
     QSqlQuery query;
     QString queryString = "SELECT AuthorID, Name FROM Authors";
@@ -43,7 +43,7 @@ QList<QVariant> AuthorService::getNewAuthors()
     return *list;
 }
 
-QVariant AuthorService::getAuthor(int authorID)
+QVariant AuthorModel::getAuthor(int authorID)
 {
     QSqlQuery query;
     QString queryString = "SELECT AuthorID, Name FROM Authors";
@@ -61,7 +61,7 @@ QVariant AuthorService::getAuthor(int authorID)
     }
 }
 
-void AuthorService::addAuthor(QString name)
+void AuthorModel::addAuthor(QString name)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO Authors(Name) values (:name)");
@@ -69,7 +69,7 @@ void AuthorService::addAuthor(QString name)
     query.exec();
 }
 
-void AuthorService::updateAuthorName(QString name, int authorID)
+void AuthorModel::updateAuthorName(QString name, int authorID)
 {
     QSqlQuery query;
     query.prepare("UPDATE Authors SET name = :name WHERE Authors.AuthorID = :authorID");
@@ -78,7 +78,7 @@ void AuthorService::updateAuthorName(QString name, int authorID)
     query.exec();
 }
 
-void AuthorService::deleteAuthor(int authorID)
+void AuthorModel::deleteAuthor(int authorID)
 {
     QSqlQuery query;
     query.prepare("DELETE FROM Authors WHERE Authors.AuthorID = :authorID");

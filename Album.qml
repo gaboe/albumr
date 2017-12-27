@@ -43,7 +43,7 @@ Rectangle {
             cursorShape: Qt.PointingHandCursor
             onClicked: {
                 layout.state = "author-detail-view"
-                authorService.setNewAuthorDetail(
+                authorModel.setNewAuthorDetail(
                             albumModel.albums[index].authorID)
                 albumModel.setNewAuthorAlbums(
                             albumModel.albums[index].authorID)

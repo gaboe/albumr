@@ -6,9 +6,9 @@ Item {
     function addAlbum() {
         if (textEdit.text != "" && !/\D/.test(yearTextEdit.text)) {
             albumModel.addAlbum(textEdit.text,
-                                  authorService.authorDetail.authorID,
+                                  authorModel.authorDetail.authorID,
                                   yearTextEdit.text, combobox.currentGenre)
-            albumModel.setNewAuthorAlbums(authorService.authorDetail.authorID)
+            albumModel.setNewAuthorAlbums(authorModel.authorDetail.authorID)
             textEdit.text = ""
             yearTextEdit.text = ""
         }

@@ -22,7 +22,7 @@ ListView {
 
             onClicked: {
                 if (stateName == "authors-view") {
-                    authorService.setNewAuthors()
+                    authorModel.setNewAuthors()
                 } else if (stateName == "albums-view") {
                     albumModel.refreshAlbums()
                 }

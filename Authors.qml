@@ -9,9 +9,9 @@ Item {
     width: (layout.width - leftMenu.width)
     function addAuthor() {
         if (textEdit.text != "") {
-            authorService.addAuthor(textEdit.text)
+            authorModel.addAuthor(textEdit.text)
             textEdit.text = ""
-            authorService.setNewAuthors()
+            authorModel.setNewAuthors()
             layout.state = "authors-view"
         }
     }
@@ -79,7 +79,7 @@ Item {
         ListView {
             id: list
             anchors.fill: parent
-            model: authorService.authors
+            model: authorModel.authors
             delegate: Text {
                 font.pointSize: 12
                 id: authorItem
@@ -90,7 +90,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         layout.state = "author-detail-view"
-                        authorService.setNewAuthorDetail(authorItem.authorID)
+                        authorModel.setNewAuthorDetail(authorItem.authorID)
                         albumModel.setNewAuthorAlbums(authorItem.authorID)
                     }
                 }
@@ -108,8 +108,8 @@ Item {
                         onClicked: {
                             albumModel.deleteAlbumsByAuthorID(
                                         authorItem.authorID)
-                            authorService.deleteAuthor(authorItem.authorID)
-                            authorService.setNewAuthors()
+                            authorModel.deleteAuthor(authorItem.authorID)
+                            authorModel.setNewAuthors()
                         }
                     }
                 }

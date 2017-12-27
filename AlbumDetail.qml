@@ -24,7 +24,7 @@ Item {
         text: albumModel.albumDetail.name
         onTextChanged: {
             albumModel.updateAlbumName(albumDetailName.text,
-                                         albumModel.albumDetail.albumID)
+                                       albumModel.albumDetail.albumID)
         }
     }
     Image {
@@ -79,7 +79,7 @@ Item {
             anchors.fill: albumDetailAuthorName
             onClicked: {
                 layout.state = "author-detail-view"
-                authorService.setNewAuthorDetail(albumDetailAuthorName.authorID)
+                authorModel.setNewAuthorDetail(albumDetailAuthorName.authorID)
                 albumModel.setNewAuthorAlbums(albumDetailAuthorName.authorID)
             }
         }
@@ -127,7 +127,6 @@ Item {
         TextEdit {
             x: albumDetail.width * 0.10
             anchors.top: songsListWrapper.bottom
-            anchors.verticalCenter: textEdit.verticalCenter
             anchors.margins: 20
             id: textEdit
             width: 200
@@ -167,7 +166,7 @@ Item {
             albumModel.setNewImage(albumModel.albumDetail.albumID, "")
             albumModel.setNewAlbumDetail(albumModel.albumDetail.albumID)
             albumModel.setNewImage(albumModel.albumDetail.albumID,
-                                     fileDialog.fileUrls)
+                                   fileDialog.fileUrls)
             albumModel.setNewAlbumDetail(albumModel.albumDetail.albumID)
         }
     }

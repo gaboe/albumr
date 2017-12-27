@@ -4,7 +4,7 @@
 #include <author.h>
 #include <QObject>
 #include <QDebug>
-class AuthorService : public QObject
+class AuthorModel : public QObject
 {
     Q_OBJECT
     QVariant m_authorDetail;
@@ -14,7 +14,7 @@ class AuthorService : public QObject
     QList<QString> m_genres;
 
 public:
-    explicit AuthorService(QObject *parent = nullptr);
+    explicit AuthorModel(QObject *parent = nullptr);
     QList<QString> getGenres();
     Q_INVOKABLE QList<QVariant> getNewAuthors();
     Q_INVOKABLE QVariant getAuthor(int authorID);

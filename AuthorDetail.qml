@@ -15,17 +15,17 @@ Item {
         layout.state = "album-detail-view"
     }
     TextEdit {
-        anchors.top: authorDetail.anchors.top
+        anchors.top: authorDetail.top
         anchors.centerIn: authorDetail
         anchors.margins: 40
         font.pixelSize: 28
-        text: authorService.authorDetail.name
+        text: authorModel.authorDetail.name
         id: authorDetailName
         anchors.bottomMargin: 20
 
         onTextChanged: {
-            authorService.updateAuthorName(authorDetailName.text,
-                                           authorService.authorDetail.authorID)
+            authorModel.updateAuthorName(authorDetailName.text,
+                                           authorModel.authorDetail.authorID)
         }
     }
 
