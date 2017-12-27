@@ -16,6 +16,23 @@ Item {
             textEdit.text = ""
         }
     }
+    Image {
+        anchors.top: albumDetail.top
+        anchors.margins: 30
+        anchors.right: albumDetail.right
+        source: applicationPath + "/delete.svg"
+        sourceSize.height: 30
+        sourceSize.width: 30
+        MouseArea {
+            cursorShape: Qt.PointingHandCursor
+            anchors.fill: parent
+            onClicked: {
+                albumModel.deleteAlbum(albumModel.albumDetail.albumID)
+                albumModel.refreshAlbums()
+                layout.state = "albums-view"
+            }
+        }
+    }
     TextEdit {
         anchors.top: albumDetail.anchors.top
         anchors.centerIn: albumDetail
@@ -50,6 +67,7 @@ Item {
         source: albumModel.albumDetail.imagePath
         cache: false
     }
+
     Button {
         id: changeImageButton
         anchors.top: albumCover.bottom
@@ -106,8 +124,27 @@ Item {
             anchors.fill: parent
             model: albumModel.songs
             delegate: Text {
+                id: songItem
                 font.pointSize: 12
                 text: (index + 1) + ". " + albumModel.songs[index].name
+                Image {
+                    anchors.margins: 20
+                    anchors.left: songItem.right
+                    id: deleteIcon
+                    source: applicationPath + "/delete.svg"
+                    sourceSize.height: 16
+                    sourceSize.width: 16
+                    MouseArea {
+                        cursorShape: Qt.PointingHandCursor
+                        anchors.fill: parent
+                        onClicked: {
+                            albumModel.deleteSong(
+                                        albumModel.songs[index].songID)
+                            albumModel.setNewSongs(
+                                        albumModel.albumDetail.albumID)
+                        }
+                    }
+                }
             }
             focus: true
             ScrollBar.vertical: ScrollBar {

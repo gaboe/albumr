@@ -33,13 +33,12 @@ Rectangle {
 
             Image {
                 anchors.top: albumCover.top
-                anchors.topMargin: 10
                 anchors.leftMargin: 10
                 anchors.left: albumCover.right
                 id: icon
                 source: applicationPath + "/delete.svg"
-                sourceSize.height: 14
-                sourceSize.width: 14
+                sourceSize.height: 30
+                sourceSize.width: 30
                 MouseArea {
                     cursorShape: Qt.PointingHandCursor
                     anchors.fill: parent

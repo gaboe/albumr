@@ -234,6 +234,14 @@ void AlbumModel::deleteAlbumImage(int albumID)
     }
 }
 
+void AlbumModel::deleteSong(int songID)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM Songs WHERE Songs.SongID = :songID");
+    query.bindValue(":songID",songID);
+    query.exec();
+}
+
 bool AlbumModel::imageExists(int albumID)
 {
     auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");

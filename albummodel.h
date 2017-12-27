@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE void deleteAlbum(int albumID);
     Q_INVOKABLE void deleteAlbumsByAuthorID(int authorID);
     void deleteAlbumImage(int albumID);
+    Q_INVOKABLE void deleteSong(int songID);
     Q_PROPERTY(QVariant albumDetail READ albumDetail WRITE setAlbumDetail NOTIFY albumDetailChanged)
     Q_PROPERTY(QList<QVariant> songs READ songs WRITE setSongs NOTIFY songsChanged)
     Q_PROPERTY(QList<QVariant> authorAlbums READ authorAlbums WRITE setAuthorAlbums NOTIFY authorAlbumsChanged)
