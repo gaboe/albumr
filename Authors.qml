@@ -16,7 +16,7 @@ Item {
         }
     }
     Text {
-        font.pixelSize: 24
+        font.pixelSize: 28
         text: "Authors"
         id: authorsHeader
         anchors.centerIn: authors

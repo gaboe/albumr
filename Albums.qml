@@ -23,7 +23,7 @@ Item {
     Text {
         anchors.top: albums.bottom
         anchors.centerIn: albums
-        font.pixelSize: 24
+        font.pixelSize: 28
         text: "Albums"
         id: albumsHeader
     }
@@ -39,11 +39,14 @@ Item {
             id: filterByNameTextEdit
             width: 200
             height: 50
+            font.pointSize: 15
             property string placeholderText: "Author name..."
             onTextChanged: {
                 filter()
             }
             Text {
+                font.pointSize: 15
+
                 id: filterByNameTextEditPlaceholder
                 text: filterByNameTextEdit.placeholderText
                 color: "#aaa"
@@ -51,6 +54,7 @@ Item {
             }
         }
         TextEdit {
+            font.pointSize: 15
             anchors.top: filtersWrapper.top
             anchors.left: filterByNameTextEdit.right
             anchors.margins: 20
@@ -62,6 +66,8 @@ Item {
                 filter()
             }
             Text {
+                font.pointSize: 15
+
                 id: filterByYearTextEditPlaceholder
                 text: filterByYearTextEdit.placeholderText
                 color: "#aaa"
@@ -75,12 +81,15 @@ Item {
             id: filterByGenreTextEdit
             width: 200
             height: 50
+            font.pointSize: 15
+
             property string placeholderText: "Genre..."
             onTextChanged: {
                 filter()
             }
 
             Text {
+                font.pointSize: 15
                 id: filterByGenreTextEditPlaceholder
                 text: filterByGenreTextEdit.placeholderText
                 color: "#aaa"

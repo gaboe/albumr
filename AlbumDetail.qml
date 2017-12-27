@@ -28,6 +28,17 @@ Item {
         }
     }
     Image {
+        anchors.topMargin: 10
+        anchors.leftMargin: 10
+        anchors.bottom: albumDetailName.anchors.bottom
+        anchors.left: albumDetailName.right
+        id: icon
+        source: applicationPath + "/pencil.svg"
+        sourceSize.height: 14
+        sourceSize.width: 14
+    }
+
+    Image {
         anchors.top: albumDetailName.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -45,7 +56,8 @@ Item {
         x: (albumDetail.width / 2) - 100
         height: 40
         width: 200
-        anchors.margins: 15
+        anchors.topMargin: 5
+        anchors.bottomMargin: 20
         text: "Change album cover"
         highlighted: true
         Material.accent: Material.BlueGrey
@@ -57,6 +69,7 @@ Item {
         font.pointSize: 20
         width: albumDetail.width
         horizontalAlignment: Text.AlignHCenter
+        anchors.margins: 20
         anchors.top: changeImageButton.bottom
         id: albumDetailAuthorName
         text: "Author: " + albumService.albumDetail.authorName

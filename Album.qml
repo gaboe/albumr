@@ -16,7 +16,7 @@ Rectangle {
     }
 
     Text {
-        font.pointSize: 15
+        font.pointSize: 18
         anchors.leftMargin: 15
         id: albumName
         anchors.verticalCenter: parent.verticalCenter
@@ -32,10 +32,30 @@ Rectangle {
     }
 
     Text {
+        font.pointSize: 13
+        anchors.leftMargin: 15
+        id: albumAuthorName
+        anchors.top: albumName.bottom
+        anchors.left: albumCover.right
+        text: albumService.albums[index].authorName
+        MouseArea {
+            anchors.fill: albumAuthorName
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+                layout.state = "author-detail-view"
+                authorService.setNewAuthorDetail(
+                            albumService.albums[index].authorID)
+                albumService.setNewAuthorAlbums(
+                            albumService.albums[index].authorID)
+            }
+        }
+    }
+
+    Text {
         font.pointSize: 12
         anchors.leftMargin: 15
         id: albumYear
-        anchors.top: albumName.bottom
+        anchors.top: albumAuthorName.bottom
         anchors.left: albumCover.right
         text: albumService.albums[index].year
         MouseArea {
@@ -47,7 +67,7 @@ Rectangle {
         }
     }
     Text {
-        font.pointSize: 14
+        font.pointSize: 11
         anchors.leftMargin: 15
         id: albumGenre
         anchors.top: albumYear.bottom

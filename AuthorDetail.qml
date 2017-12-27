@@ -17,25 +17,24 @@ Item {
         anchors.top: authorDetail.anchors.top
         anchors.centerIn: authorDetail
         anchors.margins: 40
-        font.pixelSize: 24
+        font.pixelSize: 28
         text: authorService.authorDetail.name
         id: authorDetailName
         anchors.bottomMargin: 20
 
         onTextChanged: {
-            authorService.updateAuthorName(
-                         authorDetailName.text,
-                         authorService.authorDetail.authorID)
+            authorService.updateAuthorName(authorDetailName.text,
+                                           authorService.authorDetail.authorID)
         }
+    }
 
-        Image {
-            anchors.bottom: authorDetail.anchors.bottom
-            anchors.left: authorDetailName.right
-            id: icon
-            source: applicationPath + "/pencil.svg"
-            sourceSize.height: 14
-            sourceSize.width: 14
-        }
+    Image {
+        anchors.leftMargin: 10
+        anchors.left: authorDetailName.right
+        id: icon
+        source: applicationPath + "/pencil.svg"
+        sourceSize.height: 14
+        sourceSize.width: 14
     }
     AddAlbum {
         id: addAlbumWrapper
