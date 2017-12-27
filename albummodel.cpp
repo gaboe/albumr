@@ -1,4 +1,4 @@
-#include "albumModel.h"
+#include "albummodel.h"
 #include "album.h"
 #include "song.h"
 #include <QObject>
@@ -216,7 +216,6 @@ void AlbumModel::deleteAlbumsByAuthorID(int authorID)
     while (selectQuery.next()) {
         QSqlRecord record = selectQuery.record();
         auto albumID = record.value("AlbumID").toInt();
-        qDebug() << albumID;
         deleteAlbumImage(albumID);
     }
 

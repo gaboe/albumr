@@ -19,7 +19,7 @@ SOURCES += main.cpp \
     album.cpp \
     song.cpp \
     genre.cpp \
-    albumModel.cpp
+    albummodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,4 +41,4 @@ HEADERS += \
     album.h \
     song.h \
     genre.h \
-    albumModel.h
+    albummodel.h

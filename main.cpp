@@ -5,7 +5,7 @@
 #include <QStandardPaths>
 #include "dbmanager.h"
 #include "authorservice.h"
-#include "albumModel.h"
+#include "albummodel.h"
 #include <QFileInfo>
 
 int main(int argc, char *argv[])
