@@ -74,7 +74,7 @@ QList<QVariant> AlbumService::getSongs(int albumID)
 
         auto song = new Song();
         song->setName(record.value("Name").toString());
-
+        song->setSongID(record.value("SongID").toInt());
         QVariant v = QVariant::fromValue(song);
         list->insert(list->size(),v);
     }
@@ -194,7 +194,7 @@ void AlbumService::updateAlbumName(QString name, int albumID)
     query.prepare("UPDATE Albums SET Name = :name WHERE Albums.AlbumID = :albumID");
     query.bindValue(":name",name);
     query.bindValue(":albumID",albumID);
-    qDebug() << query.exec();
+    query.exec();
 
 }
 
