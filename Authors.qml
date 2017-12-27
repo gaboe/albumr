@@ -72,6 +72,7 @@ Item {
 
     Rectangle {
         y: 120
+        x: 10
         width: ((layout.width - leftMenu.width) * .75)
         height: layout.height
 
@@ -91,6 +92,23 @@ Item {
                         layout.state = "author-detail-view"
                         authorService.setNewAuthorDetail(authorItem.authorID)
                         albumService.setNewAuthorAlbums(authorItem.authorID)
+                    }
+                }
+                Image {
+                    anchors.topMargin: 10
+                    anchors.leftMargin: 10
+                    anchors.right: authorItem.left
+                    id: icon
+                    source: applicationPath + "/delete.svg"
+                    sourceSize.height: 14
+                    sourceSize.width: 14
+                    MouseArea {
+                        cursorShape: Qt.PointingHandCursor
+                        anchors.fill: parent
+                        onClicked: {
+                            authorService.deleteAuthor(authorItem.authorID)
+                            authorService.setNewAuthors()
+                        }
                     }
                 }
             }

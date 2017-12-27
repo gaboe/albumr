@@ -77,3 +77,11 @@ void AuthorService::updateAuthorName(QString name, int authorID)
     query.bindValue(":authorID",authorID);
     query.exec();
 }
+
+void AuthorService::deleteAuthor(int authorID)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM Authors WHERE Authors.AuthorID = :authorID");
+    query.bindValue(":authorID",authorID);
+    query.exec();
+}

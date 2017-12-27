@@ -19,6 +19,8 @@ bool DbManager::open()
         qInfo() << db.lastError();
         return false;
     }
+    QSqlQuery pragma;
+    pragma.exec("PRAGMA foreign_keys = ON;");
     QStringList tables = db.tables();
 
     if (!tables.contains("albums", Qt::CaseInsensitive)) {
@@ -114,7 +116,7 @@ QString DbManager::getInitScriptForAlbums()
             "[Year] INTEGER not null," \
             "[GenreID] INTEGER," \
 
-            "foreign key(AuthorID) references Authors(AuthorID)," \
+            "foreign key(AuthorID) references Authors(AuthorID) ON DELETE CASCADE," \
             "foreign key(GenreID) references Genres(GenreID)" \
             ");" \
 
@@ -128,7 +130,7 @@ QString DbManager::getInitScriptForSongs()
             "[Name] NVARCHAR(300) NOT NULL," \
             "[AlbumID] INTEGER NOT NULL," \
 
-            "foreign key(AlbumID) references Albums(AlbumID)" \
+            "foreign key(AlbumID) references Albums(AlbumID) ON DELETE CASCADE" \
             ");" \
             ;
 }
