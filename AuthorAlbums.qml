@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id: authorAlbumsWrapper
     anchors.top: addAlbumWrapper.bottom
-    x: authorDetail.width * 0.10
+    //x: authorDetail.width * 0.10
     width: (layout.width - leftMenu.width)
     height: layout.height - 100
 

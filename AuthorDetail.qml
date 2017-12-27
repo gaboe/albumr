@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.3
 
 Item {
     y: 30
+    x: 10
     id: authorDetail
     width: (layout.width - leftMenu.width)
     anchors.topMargin: 20

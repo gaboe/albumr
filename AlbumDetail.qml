@@ -99,7 +99,7 @@ Item {
         anchors.top: albumDetailGenreName.bottom
         x: (albumDetail.width / 2) - (albumDetail.width * 0.3)
         width: albumDetail.width * .15
-        height: 100
+        height: 150
         anchors.margins: 20
         ListView {
             id: songs
@@ -110,6 +110,12 @@ Item {
                 text: (index + 1) + ". " + albumService.songs[index].name
             }
             focus: true
+            ScrollBar.vertical: ScrollBar {
+                anchors.rightMargin: 10
+                width: 20
+                anchors.right: parent.left
+                policy: ScrollBar.AlwaysOn
+            }
         }
     }
 
