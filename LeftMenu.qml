@@ -24,7 +24,7 @@ ListView {
                 if (stateName == "authors-view") {
                     authorService.setNewAuthors()
                 } else if (stateName == "albums-view") {
-                    albumService.refreshAlbums()
+                    albumModel.refreshAlbums()
                 }
                 layout.state = stateName
             }

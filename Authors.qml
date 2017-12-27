@@ -91,7 +91,7 @@ Item {
                     onClicked: {
                         layout.state = "author-detail-view"
                         authorService.setNewAuthorDetail(authorItem.authorID)
-                        albumService.setNewAuthorAlbums(authorItem.authorID)
+                        albumModel.setNewAuthorAlbums(authorItem.authorID)
                     }
                 }
                 Image {
@@ -106,7 +106,7 @@ Item {
                         cursorShape: Qt.PointingHandCursor
                         anchors.fill: parent
                         onClicked: {
-                            albumService.deleteAlbumsByAuthorID(
+                            albumModel.deleteAlbumsByAuthorID(
                                         authorItem.authorID)
                             authorService.deleteAuthor(authorItem.authorID)
                             authorService.setNewAuthors()

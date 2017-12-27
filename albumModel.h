@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include "album.h"
-class AlbumService : public QObject
+class AlbumModel : public QObject
 {
     Q_OBJECT
     QVariant m_albumDetail;
@@ -22,7 +22,7 @@ class AlbumService : public QObject
     QList<QVariant> m_albums;
 
 public:
-    explicit AlbumService(QObject *parent = nullptr);
+    explicit AlbumModel(QObject *parent = nullptr);
     Q_INVOKABLE QList<QVariant> getAlbums();
     Q_INVOKABLE QVariant getAlbum(int albumID);
     Q_INVOKABLE QList<QVariant> getSongs(int albumID);

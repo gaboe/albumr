@@ -1,4 +1,4 @@
-#include "albumservice.h"
+#include "albumModel.h"
 #include "album.h"
 #include "song.h"
 #include <QObject>
@@ -8,12 +8,12 @@
 #include <QSqlError>
 #include <QFileInfo>
 
-AlbumService::AlbumService(QObject *parent) : QObject(parent)
+AlbumModel::AlbumModel(QObject *parent) : QObject(parent)
 {
 
 }
 
-QList<QVariant> AlbumService::getAlbums()
+QList<QVariant> AlbumModel::getAlbums()
 {
     QSqlQuery query;
     QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
@@ -37,7 +37,7 @@ QList<QVariant> AlbumService::getAlbums()
     return *list;
 }
 
-QVariant AlbumService::getAlbum(int albumID)
+QVariant AlbumModel::getAlbum(int albumID)
 {
     QSqlQuery query;
     QString queryString = "SELECT Albums.AlbumID, Albums.Name, Albums.AuthorID, Albums.Year, Albums.GenreID, Authors.Name as AuthorName,  Genres.Name as GenreName FROM Albums JOIN Authors  on Authors.AuthorID = Albums.AuthorID  JOIN Genres on Genres.GenreID = Albums.GenreID";
@@ -60,7 +60,7 @@ QVariant AlbumService::getAlbum(int albumID)
     }
 }
 
-QList<QVariant> AlbumService::getSongs(int albumID)
+QList<QVariant> AlbumModel::getSongs(int albumID)
 {
 
     QSqlQuery query;
@@ -81,7 +81,7 @@ QList<QVariant> AlbumService::getSongs(int albumID)
     return *list;
 }
 
-QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QString year)
+QList<QVariant> AlbumModel::getAlbums(QString authorName, QString genre,QString year)
 {
 
     QSqlQuery query;
@@ -141,7 +141,7 @@ QList<QVariant> AlbumService::getAlbums(QString authorName, QString genre,QStrin
     return *list;
 }
 
-QList<QVariant> AlbumService::getAlbums(int authorID)
+QList<QVariant> AlbumModel::getAlbums(int authorID)
 {
 
     QSqlQuery query;
@@ -166,7 +166,7 @@ QList<QVariant> AlbumService::getAlbums(int authorID)
     return *list;
 }
 
-void AlbumService::addSong(QString name, int albumID)
+void AlbumModel::addSong(QString name, int albumID)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO Songs(Name,AlbumID) VALUES (:name, :albumID)");
@@ -175,7 +175,7 @@ void AlbumService::addSong(QString name, int albumID)
     query.exec();
 }
 
-void AlbumService::addAlbum(QString name, int authorID,int year, QString genreName)
+void AlbumModel::addAlbum(QString name, int authorID,int year, QString genreName)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO Albums(Name,AuthorID,Year,GenreID) VALUES (:name,:authorID,:year,(SELECT Genres.GenreID FROM Genres WHERE Genres.Name = :genreName LIMIT 1))");
@@ -188,7 +188,7 @@ void AlbumService::addAlbum(QString name, int authorID,int year, QString genreNa
 
 }
 
-void AlbumService::updateAlbumName(QString name, int albumID)
+void AlbumModel::updateAlbumName(QString name, int albumID)
 {
     QSqlQuery query;
     query.prepare("UPDATE Albums SET Name = :name WHERE Albums.AlbumID = :albumID");
@@ -198,7 +198,7 @@ void AlbumService::updateAlbumName(QString name, int albumID)
 
 }
 
-void AlbumService::deleteAlbum(int albumID)
+void AlbumModel::deleteAlbum(int albumID)
 {
     deleteAlbumImage(albumID);
     QSqlQuery query;
@@ -207,7 +207,7 @@ void AlbumService::deleteAlbum(int albumID)
     query.exec();
 }
 
-void AlbumService::deleteAlbumsByAuthorID(int authorID)
+void AlbumModel::deleteAlbumsByAuthorID(int authorID)
 {
     QSqlQuery selectQuery;
     selectQuery.prepare("SELECT AlbumID FROM Albums WHERE Albums.AuthorID = :authorID");
@@ -226,7 +226,7 @@ void AlbumService::deleteAlbumsByAuthorID(int authorID)
     query.exec();
 }
 
-void AlbumService::deleteAlbumImage(int albumID)
+void AlbumModel::deleteAlbumImage(int albumID)
 {
     auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
     if (QFile::exists(path))
@@ -235,7 +235,7 @@ void AlbumService::deleteAlbumImage(int albumID)
     }
 }
 
-bool AlbumService::imageExists(int albumID)
+bool AlbumModel::imageExists(int albumID)
 {
     auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
     QFile file(path);
@@ -243,7 +243,7 @@ bool AlbumService::imageExists(int albumID)
     return exists;
 }
 
-QString AlbumService::getImagePath(int albumID)
+QString AlbumModel::getImagePath(int albumID)
 {
     if(this->imageExists(albumID)){
         return this->imagePath().append("/").append(QString::number(albumID)).append(".jpg");
@@ -252,7 +252,7 @@ QString AlbumService::getImagePath(int albumID)
 
 }
 
-void AlbumService::setNewImage(int albumID, QString path)
+void AlbumModel::setNewImage(int albumID, QString path)
 {
     auto newPath = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
     deleteAlbumImage(albumID);

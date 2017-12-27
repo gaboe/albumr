@@ -8,11 +8,11 @@ Item {
     id: albumDetail
     anchors.topMargin: 20
     width: (layout.width - leftMenu.width)
-    property int albumID: albumService.albumDetail.albumID
+    property int albumID: albumModel.albumDetail.albumID
     function addSong() {
         if (textEdit.text != "") {
-            albumService.addSong(textEdit.text, albumDetail.albumID)
-            albumService.setNewSongs(albumDetail.albumID)
+            albumModel.addSong(textEdit.text, albumDetail.albumID)
+            albumModel.setNewSongs(albumDetail.albumID)
             textEdit.text = ""
         }
     }
@@ -21,10 +21,10 @@ Item {
         anchors.centerIn: albumDetail
         font.pointSize: 28
         id: albumDetailName
-        text: albumService.albumDetail.name
+        text: albumModel.albumDetail.name
         onTextChanged: {
-            albumService.updateAlbumName(albumDetailName.text,
-                                         albumService.albumDetail.albumID)
+            albumModel.updateAlbumName(albumDetailName.text,
+                                         albumModel.albumDetail.albumID)
         }
     }
     Image {
@@ -47,7 +47,7 @@ Item {
         sourceSize.height: (layout.width - leftMenu.width) * 0.3
         sourceSize.width: (layout.width - leftMenu.width) * 0.3
         fillMode: Image.PreserveAspectFit
-        source: albumService.albumDetail.imagePath
+        source: albumModel.albumDetail.imagePath
         cache: false
     }
     Button {
@@ -72,15 +72,15 @@ Item {
         anchors.margins: 20
         anchors.top: changeImageButton.bottom
         id: albumDetailAuthorName
-        text: "Author: " + albumService.albumDetail.authorName
-        property int authorID: albumService.albumDetail.authorID
+        text: "Author: " + albumModel.albumDetail.authorName
+        property int authorID: albumModel.albumDetail.authorID
         MouseArea {
             cursorShape: Qt.PointingHandCursor
             anchors.fill: albumDetailAuthorName
             onClicked: {
                 layout.state = "author-detail-view"
                 authorService.setNewAuthorDetail(albumDetailAuthorName.authorID)
-                albumService.setNewAuthorAlbums(albumDetailAuthorName.authorID)
+                albumModel.setNewAuthorAlbums(albumDetailAuthorName.authorID)
             }
         }
     }
@@ -91,7 +91,7 @@ Item {
         font.pointSize: 15
         anchors.top: albumDetailAuthorName.bottom
         id: albumDetailGenreName
-        text: "Genre: " + albumService.albumDetail.genreName
+        text: "Genre: " + albumModel.albumDetail.genreName
     }
 
     Rectangle {
@@ -104,10 +104,10 @@ Item {
         ListView {
             id: songs
             anchors.fill: parent
-            model: albumService.songs
+            model: albumModel.songs
             delegate: Text {
                 font.pointSize: 12
-                text: (index + 1) + ". " + albumService.songs[index].name
+                text: (index + 1) + ". " + albumModel.songs[index].name
             }
             focus: true
             ScrollBar.vertical: ScrollBar {
@@ -164,11 +164,11 @@ Item {
         folder: shortcuts.home
         visible: false
         onAccepted: {
-            albumService.setNewImage(albumService.albumDetail.albumID, "")
-            albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
-            albumService.setNewImage(albumService.albumDetail.albumID,
+            albumModel.setNewImage(albumModel.albumDetail.albumID, "")
+            albumModel.setNewAlbumDetail(albumModel.albumDetail.albumID)
+            albumModel.setNewImage(albumModel.albumDetail.albumID,
                                      fileDialog.fileUrls)
-            albumService.setNewAlbumDetail(albumService.albumDetail.albumID)
+            albumModel.setNewAlbumDetail(albumModel.albumDetail.albumID)
         }
     }
 

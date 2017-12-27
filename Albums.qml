@@ -11,13 +11,13 @@ Item {
     property variant colorArray: ["#00bde3", "#67c111", "#ea7025"]
     state: "focused"
     function filter() {
-        albumService.filterAlbums(filterByNameTextEdit.text,
+        albumModel.filterAlbums(filterByNameTextEdit.text,
                                   filterByGenreTextEdit.text,
                                   filterByYearTextEdit.text)
     }
     function redirectToAlbumDetail(index) {
-        albumService.setNewAlbumDetail(albumService.albums[index].albumID)
-        albumService.setNewSongs(albumService.albums[index].albumID)
+        albumModel.setNewAlbumDetail(albumModel.albums[index].albumID)
+        albumModel.setNewSongs(albumModel.albums[index].albumID)
         layout.state = "album-detail-view"
     }
     Text {
@@ -110,7 +110,7 @@ Item {
             height: layout.height
             width: (layout.width - leftMenu.width)
             anchors.fill: parent
-            model: albumService.albums
+            model: albumModel.albums
             clip: true
             focus: true
             delegate: Album {

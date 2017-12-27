@@ -5,7 +5,7 @@
 #include <QStandardPaths>
 #include "dbmanager.h"
 #include "authorservice.h"
-#include "albumservice.h"
+#include "albumModel.h"
 #include <QFileInfo>
 
 int main(int argc, char *argv[])
@@ -23,19 +23,19 @@ int main(int argc, char *argv[])
         return 1;
 
     auto authorService = new AuthorService();
-    auto albumService = new AlbumService();
+    auto albumModel = new AlbumModel();
 
     authorService->refreshGenres();
-    albumService->setApplicationPath(qApp->applicationDirPath()+ "/../albumr/images");
-    albumService->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr/images");
+    albumModel->setApplicationPath(qApp->applicationDirPath()+ "/../albumr/images");
+    albumModel->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr/images");
 
-    albumService->refreshAlbums();
+    albumModel->refreshAlbums();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/../albumr/images");
     engine.rootContext()->setContextProperty("authorService", authorService);
-    engine.rootContext()->setContextProperty("albumService", albumService);
+    engine.rootContext()->setContextProperty("albumModel", albumModel);
 
     if (engine.rootObjects().isEmpty())
         return -1;

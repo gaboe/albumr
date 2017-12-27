@@ -12,7 +12,7 @@ Rectangle {
         sourceSize.width: (layout.width - leftMenu.width) * 0.25
         fillMode: Image.PreserveAspectFit
         cache: false
-        source: albumService.getImagePath(albumService.albums[index].albumID)
+        source: albumModel.getImagePath(albumModel.albums[index].albumID)
     }
 
     Text {
@@ -21,7 +21,7 @@ Rectangle {
         id: albumName
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: albumCover.right
-        text: albumService.albums[index].name
+        text: albumModel.albums[index].name
         MouseArea {
             anchors.fill: albumName
             cursorShape: Qt.PointingHandCursor
@@ -37,16 +37,16 @@ Rectangle {
         id: albumAuthorName
         anchors.top: albumName.bottom
         anchors.left: albumCover.right
-        text: albumService.albums[index].authorName
+        text: albumModel.albums[index].authorName
         MouseArea {
             anchors.fill: albumAuthorName
             cursorShape: Qt.PointingHandCursor
             onClicked: {
                 layout.state = "author-detail-view"
                 authorService.setNewAuthorDetail(
-                            albumService.albums[index].authorID)
-                albumService.setNewAuthorAlbums(
-                            albumService.albums[index].authorID)
+                            albumModel.albums[index].authorID)
+                albumModel.setNewAuthorAlbums(
+                            albumModel.albums[index].authorID)
             }
         }
     }
@@ -57,7 +57,7 @@ Rectangle {
         id: albumYear
         anchors.top: albumAuthorName.bottom
         anchors.left: albumCover.right
-        text: albumService.albums[index].year
+        text: albumModel.albums[index].year
         MouseArea {
             anchors.fill: albumYear
             cursorShape: Qt.PointingHandCursor
@@ -72,7 +72,7 @@ Rectangle {
         id: albumGenre
         anchors.top: albumYear.bottom
         anchors.left: albumCover.right
-        text: albumService.albums[index].genreName
+        text: albumModel.albums[index].genreName
         MouseArea {
             anchors.fill: albumGenre
             cursorShape: Qt.PointingHandCursor

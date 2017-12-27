@@ -5,10 +5,10 @@ import QtQuick.Controls.Material 2.3
 Item {
     function addAlbum() {
         if (textEdit.text != "" && !/\D/.test(yearTextEdit.text)) {
-            albumService.addAlbum(textEdit.text,
+            albumModel.addAlbum(textEdit.text,
                                   authorService.authorDetail.authorID,
                                   yearTextEdit.text, combobox.currentGenre)
-            albumService.setNewAuthorAlbums(authorService.authorDetail.authorID)
+            albumModel.setNewAuthorAlbums(authorService.authorDetail.authorID)
             textEdit.text = ""
             yearTextEdit.text = ""
         }

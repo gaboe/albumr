@@ -10,8 +10,8 @@ Item {
     anchors.topMargin: 20
 
     function redirectToAlbumDetail(index) {
-        albumService.setNewAlbumDetail(albumService.authorAlbums[index].albumID)
-        albumService.setNewSongs(albumService.authorAlbums[index].albumID)
+        albumModel.setNewAlbumDetail(albumModel.authorAlbums[index].albumID)
+        albumModel.setNewSongs(albumModel.authorAlbums[index].albumID)
         layout.state = "album-detail-view"
     }
     TextEdit {

@@ -13,7 +13,7 @@ Rectangle {
         height: layout.height
         width: (layout.width - leftMenu.width)
         anchors.fill: parent
-        model: albumService.authorAlbums
+        model: albumModel.authorAlbums
         clip: true
         focus: true
         delegate: Rectangle {
@@ -27,8 +27,8 @@ Rectangle {
                 sourceSize.width: (layout.width - leftMenu.width) * 0.25
                 fillMode: Image.PreserveAspectFit
                 cache: false
-                source: albumService.getImagePath(
-                            albumService.authorAlbums[index].albumID)
+                source: albumModel.getImagePath(
+                            albumModel.authorAlbums[index].albumID)
             }
 
             Image {
@@ -44,9 +44,9 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     anchors.fill: parent
                     onClicked: {
-                        albumService.deleteAlbum(
-                                    albumService.authorAlbums[index].albumID)
-                        albumService.setNewAuthorAlbums(
+                        albumModel.deleteAlbum(
+                                    albumModel.authorAlbums[index].albumID)
+                        albumModel.setNewAuthorAlbums(
                                     authorService.authorDetail.authorID)
                     }
                 }
@@ -57,7 +57,7 @@ Rectangle {
                 id: albumName
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: albumCover.right
-                text: albumService.authorAlbums[index].name
+                text: albumModel.authorAlbums[index].name
                 MouseArea {
                     anchors.fill: albumName
                     cursorShape: Qt.PointingHandCursor
@@ -73,7 +73,7 @@ Rectangle {
                 id: albumYear
                 anchors.top: albumName.bottom
                 anchors.left: albumCover.right
-                text: albumService.authorAlbums[index].year
+                text: albumModel.authorAlbums[index].year
                 MouseArea {
                     anchors.fill: albumYear
                     cursorShape: Qt.PointingHandCursor
@@ -88,7 +88,7 @@ Rectangle {
                 id: albumGenre
                 anchors.top: albumYear.bottom
                 anchors.left: albumCover.right
-                text: albumService.authorAlbums[index].genreName
+                text: albumModel.authorAlbums[index].genreName
                 MouseArea {
                     anchors.fill: albumGenre
                     cursorShape: Qt.PointingHandCursor
