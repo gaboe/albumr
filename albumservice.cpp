@@ -198,6 +198,43 @@ void AlbumService::updateAlbumName(QString name, int albumID)
 
 }
 
+void AlbumService::deleteAlbum(int albumID)
+{
+    deleteAlbumImage(albumID);
+    QSqlQuery query;
+    query.prepare("DELETE FROM Albums WHERE Albums.AlbumID = :albumID");
+    query.bindValue(":albumID",albumID);
+    query.exec();
+}
+
+void AlbumService::deleteAlbumsByAuthorID(int authorID)
+{
+    QSqlQuery selectQuery;
+    selectQuery.prepare("SELECT AlbumID FROM Albums WHERE Albums.AuthorID = :authorID");
+    selectQuery.bindValue(":authorID",authorID);
+    selectQuery.exec();
+    while (selectQuery.next()) {
+        QSqlRecord record = selectQuery.record();
+        auto albumID = record.value("AlbumID").toInt();
+        qDebug() << albumID;
+        deleteAlbumImage(albumID);
+    }
+
+    QSqlQuery query;
+    query.prepare("DELETE FROM Albums WHERE Albums.AuthorID = :authorID");
+    query.bindValue(":authorID",authorID);
+    query.exec();
+}
+
+void AlbumService::deleteAlbumImage(int albumID)
+{
+    auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
+    if (QFile::exists(path))
+    {
+        QFile::remove(path);
+    }
+}
+
 bool AlbumService::imageExists(int albumID)
 {
     auto path = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
@@ -217,12 +254,8 @@ QString AlbumService::getImagePath(int albumID)
 
 void AlbumService::setNewImage(int albumID, QString path)
 {
-
     auto newPath = this->applicationPath().append("/").append(QString::number(albumID)).append(".jpg");
-    if (QFile::exists(newPath))
-    {
-        QFile::remove(newPath);
-    }
+    deleteAlbumImage(albumID);
 
     QFile::copy(path.replace(0,7,""),newPath );
 }

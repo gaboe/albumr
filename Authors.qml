@@ -100,12 +100,14 @@ Item {
                     anchors.right: authorItem.left
                     id: icon
                     source: applicationPath + "/delete.svg"
-                    sourceSize.height: 14
-                    sourceSize.width: 14
+                    sourceSize.height: 16
+                    sourceSize.width: 16
                     MouseArea {
                         cursorShape: Qt.PointingHandCursor
                         anchors.fill: parent
                         onClicked: {
+                            albumService.deleteAlbumsByAuthorID(
+                                        authorItem.authorID)
                             authorService.deleteAuthor(authorItem.authorID)
                             authorService.setNewAuthors()
                         }

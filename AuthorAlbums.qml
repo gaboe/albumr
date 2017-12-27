@@ -20,6 +20,7 @@ Rectangle {
             anchors.margins: 15
             width: (layout.width - leftMenu.width)
             height: (layout.width - leftMenu.width) * 0.3
+
             Image {
                 id: albumCover
                 sourceSize.height: (layout.width - leftMenu.width) * 0.25
@@ -30,6 +31,26 @@ Rectangle {
                             albumService.authorAlbums[index].albumID)
             }
 
+            Image {
+                anchors.top: albumCover.top
+                anchors.topMargin: 10
+                anchors.leftMargin: 10
+                anchors.left: albumCover.right
+                id: icon
+                source: applicationPath + "/delete.svg"
+                sourceSize.height: 14
+                sourceSize.width: 14
+                MouseArea {
+                    cursorShape: Qt.PointingHandCursor
+                    anchors.fill: parent
+                    onClicked: {
+                        albumService.deleteAlbum(
+                                    albumService.authorAlbums[index].albumID)
+                        albumService.setNewAuthorAlbums(
+                                    authorService.authorDetail.authorID)
+                    }
+                }
+            }
             Text {
                 font.pointSize: 15
                 anchors.leftMargin: 15
