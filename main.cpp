@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
     auto albumModel = new AlbumModel();
 
     authorModel->refreshGenres();
-    albumModel->setApplicationPath(qApp->applicationDirPath()+ "/../albumr-master/images");
-    albumModel->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr-master/images");
+    albumModel->setApplicationPath(qApp->applicationDirPath()+ "/../albumr/images");
+    albumModel->setImagePath("file://"+qApp->applicationDirPath()+ "/../albumr/images");
 
     albumModel->refreshAlbums();
 
